@@ -1,0 +1,19 @@
+.back-to-top {
+    position: fixed;
+    bottom: 3em;
+    right: 3em;
+    text-decoration: none;
+    color: #EEEEEE;
+    background-color: #11a99b;
+    font-size: 12px;
+    padding: 1em;
+    display: none;
+    border-radius: 3px;
+    border: 1px solid #CCCCCC;
+    z-index:10;
+}
+
+.back-to-top:focus,.back-to-top:hover{
+    color: #EEEEEE;
+    text-decoration: none;
+}

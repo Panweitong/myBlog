@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="themes/default/header1::header('博客',null)"></div>
+<body>
+<header class="masthead text-white text-center"
+        style="background-image: url('http://blackrockdigital.github.io/startbootstrap-clean-blog/img/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col mx-auto text-left pl-5">
+                <h1>Blog</h1>
+                <h3>记录技术成长点滴</h3>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container container-fluid mt-5 mb-5">
+    <!--<img src="http://blackrockdigital.github.io/startbootstrap-clean-blog/img/home-bg.jpg" alt="">-->
+    <div class="row">
+        <!-- s 左侧 -->
+        <div class="col-md-8">
+            <ul class="list-unstyled">
+                <th:block th:if="${not #lists.isEmpty(articles)}">
+                    <th:block th:each="article: ${articles.list}">
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <a th:href="${commons.permalink(article)}" class="text-dark"><h4
+                                    class="card-title font-weight-bold" th:text="${article.title}"></h4>
+                                </a>
+                                <p class="card-text">
+                                    <th:block th:text="${article.description}"/>
+                                </p>
+                                <p class="text-right text-secondary">
+                                    <th:block th:text="${commons.fmtdate(article.modified, 'yyyy/MM/dd HH:mm')}"/>
+                                </p>
+                            </div>
+                        </div>
+                    </th:block>
+                    <th:block th:unless="${not #lists.isEmpty(articles)}">
+                        <div class="card border-danger mt-3 mb-3">
+                            <div class="card-body text-danger">
+                                <h2 class="card-title"><i class="fa fa-warning fa-1x"></i> 抱歉，没有找到相关内容</h2>
+                                <p class="card-text">试试其他关键字？</p>
+                            </div>
+                        </div>
+                    </th:block>
+                </th:block>
+            </ul>
+        </div>
+        <!-- e 左侧 -->
+        <!-- s 右侧 -->
+        <div class="col-md-4 mt-3">
+            <div class="card mb-3">
+                <div class="card-header">
+                    搜索文章
+                </div>
+                <div class="card-body">
+                    <form action="/myBlog/postsearch">
+                       <div class="input-group">
+                           <input name="name" type="text" class="form-control" placeholder="输入你想查找的题目..."
+                                aria-label="输入你想查找的题目...">
+                           <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">搜索</button>
+                           </span>
+                       </div>
+                    </form>
+                </div>
+            </div>
+            <th:block th:if="${not #lists.isEmpty(tag)}">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        热门标签
+                    </div>
+                    <div class="card-body">
+                        <th:block th:each="tag: ${tag}">
+                            <!-- tag -->
+                            <a th:href="@{'/post?mid='+${tag.mid}}" target="_blank">
+                                <button type="button" class="btn btn-outline-primary mb-3">
+                                    <th:block th:text="${tag.name}"></th:block>
+                                    <span class="badge badge-primary" th:text="${tag.count}"></span>
+                                </button>
+                            </a>
+                        </th:block>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+         <!-- e 右侧 -->
+     </div>
+    <div class="lists-navigator clearfix">
+        <div th:replace="comm/posts::pageNav(${articles},'←','→','post',${id})"></div>
+    </div>
+</div>
+</body>
+<div th:replace="themes/default/footer::footer"></div>
+</html>

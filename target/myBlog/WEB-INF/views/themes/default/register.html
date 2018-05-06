@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Blog - 用户注册</title>
+    <link rel="shortcut icon" th:href="@{/static/admin/images/favicon.ico}"/>
+    <!-- Bootstrap core CSS-->
+    <link th:href="@{/static/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/static/vendor/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link th:href="@{/static/sb-admin/sb-admin.css}" rel="stylesheet">
+    <link th:href="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.css}" rel="stylesheet"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="bg-dark">
+<div class="container">
+   <div class="card card-register mx-auto mt-5">
+       <div class="card-header">Blog</div>
+       <div class="card-body">
+           <form id="UserRegisterForm">
+               <div class="form-group">
+                   <div class="form-row">
+                       <div class="col-md-6">
+                           <label for="username">用户名</label>
+                           <input class="form-control" id="username" type="text" aria-describedby="nameHelp" placeholder="Enter Username" name="username">
+                       </div>
+                       <div class="col-md-6">
+                           <label for="email">电子邮箱</label>
+                           <input class="form-control" id="email" type="text" aria-describedby="nameHelp" placeholder="Enter Email" name="email">
+                       </div>
+                   </div>
+               </div>
+               <div class="form-group">
+                   <div class="form-row">
+                       <div class="col-md-6">
+                           <label for="password">密码</label>
+                           <input class="form-control" id="password" type="password" placeholder="Enter Password" name="password">
+                       </div>
+                       <div class="col-md-6">
+                           <label for="id_confirm_password">确认密码</label>
+                           <input class="form-control" id="id_confirm_password" type="password" placeholder="Enter Confirm password" name="confirmpassword">
+                       </div>
+                   </div>
+               </div>
+               <div class="form-group text-center m-t-40">
+                   <div class="col-xs-12">
+                       <button class="btn btn-primary btn-block" style="box-shadow: 0px 0px 4px #868282;" type="submit">立即注册
+                       </button>
+                   </div>
+               </div>
+           </form>
+           <div class="container text-center mt-3">
+               <div class="col-xs-12">
+                   <a class="d-block small" style="float: left" th:href="@{/}">返回首页</a>
+                   <a class="d-block small" style="float: right" th:href="@{/login}">已有账号?立即登录</a>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/static/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- Core plugin JavaScript-->
+<script th:src="@{/static/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.js}"></script>
+<script th:src="@{/static/admin/js/base.js}"></script>
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
+<script type="text/javascript">
+    /*<![CDATA[*/
+    var tale = new $.tale();
+    function checkForm() {
+        tale.post({
+            url: '/myBlog/register',
+            data: $("#UserRegisterForm").serialize(),
+            success: function (result) {
+                if (result && result.success) {
+                    alert(result.msg||'注册成功');
+                    window.location.href = '/myBlog/index';
+                } else {
+                    tale.alertError(result.msg || '注册失败');
+                }
+            }
+        });
+        return false;
+    }
+    /*]]>*/
+</script>
+<script type="text/javascript">
+    $().ready(function(){
+        // 在键盘按下并释放及提交后验证提交表单
+        $("#UserRegisterForm").validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 2
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password:{
+                    required: true,
+                    minlength: 5
+                },
+                confirmpassword: {
+                    required: true,
+                    minlength: 5,
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                username: {
+                    required: "请输入用户名",
+                    minlength: "请输入两个以上字母"
+                },
+                email: "请输入正确的邮箱",
+                password:{
+                    required: "请输入新密码",
+                    minlength: "密码长度不能小于 5"
+                },
+                confirmpassword: {
+                    required: "请输入确认密码",
+                    minlength: "密码长度不能小于 5",
+                    equalTo: "两次密码输入不一致"
+                }
+            },
+            submitHandler:function(form){
+                checkForm();
+            }
+        });
+    })
+</script>
+</body>
+</html>

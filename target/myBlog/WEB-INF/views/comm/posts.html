@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+<ol class="page-navigator" th:fragment="pageNav(pageInfo, prevText, nextText, prefix,id)">
+    <th:block th:if="${pageInfo.hasPreviousPage}">
+        <th:block th:if="${id}!=''">
+            <li class="prev"><a th:href="@{'/'+${prefix}+'/'+${pageInfo.prePage}+'?mid='+${id}}" th:text="${prevText}"></a></li>
+        </th:block>
+        <th:block th:unless="${id}!=''">
+            <li class="prev"><a th:href="@{'/'+${prefix}+'/'+${pageInfo.prePage}}" th:text="${prevText}"></a></li>
+        </th:block>
+    </th:block>
+
+    <th:block th:each="navIndex :${ pageInfo.navigatepageNums}">
+        <th:block th:if="${id}!=''">
+            <li th:class="${pageInfo.pageNum==navIndex}?'current':''"><a th:href="@{'/post/'+${navIndex}+'?mid='+${id}}"
+                                                                     th:text="${navIndex}"></a></li>
+        </th:block>
+        <th:block th:unless="${id}!=''">
+            <li th:class="${pageInfo.pageNum==navIndex}?'current':''"><a th:href="@{'/post/'+${navIndex}}"
+                                                                         th:text="${navIndex}"></a></li>
+        </th:block>
+    </th:block>
+
+
+    <th:block th:if="${pageInfo.hasNextPage}">
+        <th:block th:if="${id}!=''">
+            <li class="next"><a th:href="@{'/'+${prefix}+'/'+${pageInfo.nextPage}+'?mid='+${id}}" th:text="${nextText}"></a></li>
+        </th:block>
+        <th:block th:unless="${id}!=''">
+            <li class="next"><a th:href="@{'/'+${prefix}+'/'+${pageInfo.nextPage}}" th:text="${nextText}"></a></li>
+        </th:block>
+    </th:block>
+
+</ol>
+
+<div th:fragment="pageAdminNav(pageInfo)">
+    <div class="clearfix">
+        <ul class="pagination m-b-5 pull-right">
+            <li th:if="${pageInfo.hasPreviousPage}">
+                <th:block th:if="${id}!=''">
+                    <a th:href="@{post=${pageInfo.prePage}+'?mid='+${id}}" aria-label="Previous">
+                        <i class="fa fa-angle-left"></i>&nbsp;上一页
+                    </a>
+                </th:block>
+                <th:block th:unless="${id}!=''">
+                    <a th:href="@{post=${pageInfo.prePage}}" aria-label="Previous">
+                        <i class="fa fa-angle-left"></i>&nbsp;上一页
+                    </a>
+                </th:block>
+            </li>
+
+            <th:block th:each="nav : ${pageInfo.navigatepageNums}">
+                <th:block th:if="${id}!=''">
+                    <li th:class="${nav==pageInfo.pageNum}?'active':''"><a th:href="@{'?post='+${nav}+'?mid='+${id}}" th:text="${nav}"></a>
+                    </li>
+                </th:block>
+                <th:block th:unless="${id}!=''">
+                    <li th:class="${nav==pageInfo.pageNum}?'active':''"><a th:href="@{'?post='+${nav}}" th:text="${nav}"></a>
+                    </li>
+                </th:block>
+            </th:block>
+
+            <th:block th:if="${pageInfo.hasNextPage}">
+                <li>
+                    <th:block th:if="${id}!=''">
+                        <a th:href="@{'?post='+${pageInfo.nextPage}+'?mid='+${id}}" aria-label="Next">
+                            下一页&nbsp;<i class="fa fa-angle-right"></i>
+                        </a>
+                    </th:block>
+                    <th:block th:unless="${id}!=''">
+                        <a th:href="@{'?post='+${pageInfo.nextPage}}" aria-label="Next">
+                            下一页&nbsp;<i class="fa fa-angle-right"></i>
+                        </a>
+                    </th:block>
+                </li>
+            </th:block>
+
+            <li><span th:text="'共'+${pageInfo.pages}+'页'"></span></li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

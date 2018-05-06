@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="themes/default/header::header(null,null)"></div>
+<body>
+<header>
+    <div id="slideIndicators" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="">
+        <ol class="carousel-indicators">
+            <li data-target="#slideIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#slideIndicators" data-slide-to="1"></li>
+            <li data-target="#slideIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active"
+                 style="background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063491041&di=8767c9c3177b01c45db9cc3854b78e0f&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F033edd5554c7e6d00000158fc7b2956.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">优秀的判断力来自经验，但经验来自错误的判断</h3>
+                    <p class="txt_shadow">Good judgment comes from experience, but experience comes from bad judgment.</p>
+                </div>
+            </div>
+            <!-- Slide Two - Set the background image for this slide in the line below -->
+            <div class="carousel-item"
+                 style="background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063190806&di=71bdda130cdedcd895e5a3d476a89081&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fitbbs%2F1309%2F16%2Fc18%2F25748320_1379313651110.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">我不是一个伟大的程序员，我只是一个具有良好习惯的优秀程序员</h3>
+                    <p class="txt_shadow">I am not a great programmer, I am just a good programmer with good habits. </p>
+                </div>
+            </div>
+            <!-- Slide Three - Set the background image for this slide in the line below -->
+            <div class="carousel-item"
+                 style="background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063331413&di=de07b2eb50799360c9bf5c378da23bbf&imgtype=0&src=http%3A%2F%2Fpic.99wed.com%2Fattachment%2FMon_1107%2F98_736564_b419d830ab0564c.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">你们中大多数人都熟悉程序员的美德，有三种：那就是懒惰、急躁和傲慢</h3>
+                    <p class="txt_shadow">Most of you are familiar with the programmer's virtues, and there are three: laziness,
+                        impatience, and arrogance. </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+<div class="main-content index-page clearfix"  style="flex: 1 0 auto;">
+    <div class="post-lists">
+        <div class="post-lists-body">
+            <div class="post-list-item" th:each="article: ${articles.list}">
+                <div class="post-list-item-container">
+                    <a th:href="${commons.permalink(article)}" class="item-thumb  bg-deepgrey"
+                       th:style="'background-image:url('+@{${commons.show_thumb(article)}}+');'">
+                        <dir class="item-desc" th:text="${article.tags}"></dir>
+                    </a>
+                    <div class="item-slant reverse-slant &lt; bg-deepgrey"></div>
+                    <div class="item-slant"></div>
+                    <div class="item-label">
+                        <div class="item-title"><a th:href="${commons.permalink(article)}"
+                                                   th:text="${article.title}"></a>
+                        </div>
+                        <div class="item-meta clearfix">
+                            <div th:class="'item-meta-ico '+ ${commons.show_icon(article.cid)}"
+                                 th:style="'background: url('+@{/static/user/img/bg-ico.png}+');no-repeat;background-size: 40px auto;' "></div>
+                            <div class="item-meta-cat" th:utext="${commons.show_categories(article.categories)}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="lists-navigator clearfix">
+        <div th:replace="comm/macros::pageNav(${articles},'←','→','page')"></div>
+    </div>
+</div>
+</body>
+<div th:replace="themes/default/footer::footer"></div>
+</html>
