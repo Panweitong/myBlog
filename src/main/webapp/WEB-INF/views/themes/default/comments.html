@@ -55,11 +55,11 @@
                                    th:text="${comment.author}"></a>
                             </span>
                                     </div>
-                                    <div class="comment-content">
+                                    <div class="comment-content" style="text-align: left;">
                                         <span class="comment-author-at"></span>
                                         <p th:utext="${commons.article(comment.content)}"></p>
                                     </div>
-                                    <div class="comment-meta">
+                                    <div class="comment-meta" style="text-align: right">
                                         <time class="comment-time" th:text="${commons.fmtdate(comment.created)}"></time>
                                         <span class="comment-reply">
                             </span>
