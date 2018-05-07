@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <div th:replace="themes/default/header::header('个人资料',null)"></div>
+<link href="//cdn.bootcss.com/dropzone/4.3.0/min/dropzone.min.css" rel="stylesheet"/>
+<style>
+    #dropzone {
+        margin-bottom: 3rem;
+    }
+
+    .dropzone {
+        border: 2px dashed #0087F7;
+        border-radius: 5px;
+        background: white;
+    }
+
+    .dropzone .dz-message {
+        font-weight: 400;
+    }
+
+    .dropzone .dz-message .note {
+        font-size: 0.8em;
+        font-weight: 200;
+        display: block;
+        margin-top: 1.4rem;
+    }
+</style>
 <body>
 <header>
     <div id="slideIndicators" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="">
@@ -46,8 +69,13 @@
             <div style="text-align: center">
                 <div>
                     <p><img style="width: 300px;height: 300px;border-radius:160px;" title="点击修改头像" th:src="@{${fontUser.headPhoto}}" id="uploadHead" onclick="fileSelect();"></p>
+                    <form action="#"  style="width:auto;display: none" class="dropzone" id="dropzone" >
+                        <div class="fallback">
+                            <input name="file" type="file" multiple="multiple"/>
+                        </div>
+                    </form>
                     <form id="form_face" enctype="multipart/form-data" style="width:auto;">
-                        <input type="file" name="fileToUpload" id="fileToUpload" style="display:none;">
+                        <input type="file" name="fileToUpload" id="fileToUpload" accept=".jpg,.png,.gif" style="display:none;">
                     </form>
                 </div>
                 <br>
@@ -117,20 +145,40 @@
 <script th:src="@{/static/vendor/jquery/jquery.min.js}"></script>
 <script th:src="@{/static/admin/js/base.js}"></script>
 <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/jquery.validate.min.js"></script>
-<script type="text/javascript">
+<script src="//cdn.bootcss.com/dropzone/4.3.0/min/dropzone.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+    var tale = new $.tale();
+
     function fileSelect() {
-        document.getElementById("fileToUpload").click();
+        document.getElementById("dropzone").click();
     }
 
-    $("#fileToUpload").change(function(e) {
-        for (var i = 0; i < e.target.files.length; i++) {
-            var file = e.target.files.item(i);
-            var freader = new FileReader();
-            freader.readAsDataURL(file);
-            freader.onload = function(e) {
-                var src = e.target.result;
-                $("#uploadHead").attr("src",src);
-            }
+    $("#dropzone").dropzone({
+        paramName: "file",
+        url: "/myBlog/upload",
+        maxFilesize: 1,
+        acceptedFiles:".jpg,.jpeg,.png,.gif",
+        init: function () {
+            this.on("success", function (file, msg) {
+                console.log(file);
+                if (msg.success !== true) {
+                    tale.alertError('上传文件大于1M');
+                }
+                setTimeout(function () {
+                    window.location.reload();
+                }, 200);
+                $("#fileToUpload").change(function(e) {
+                    for (var i = 0; i < e.target.files.length; i++) {
+                        var file = e.target.files.item(i);
+                        var freader = new FileReader();
+                        freader.readAsDataURL(file);
+                        freader.onload = function(e) {
+                            var src = e.target.result;
+                            $("#uploadHead").attr("src",src);
+                        };
+                    }
+                });
+            });
         }
     });
 

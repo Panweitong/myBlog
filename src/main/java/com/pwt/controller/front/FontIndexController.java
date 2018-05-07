@@ -19,7 +19,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.crypto.IllegalBlockSizeException;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -29,9 +32,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,10 +58,13 @@ public class FontIndexController extends BaseController {
     @Autowired
     private ISiteService siteService;
 
+    @Autowired
+    private IAttachService attachService;
 
     @Autowired
     private IFontUserService fontUserService;
 
+    public static String CLASSPATH = "";
 
     @Autowired
     private ICommentService commentService;
@@ -91,7 +100,7 @@ public class FontIndexController extends BaseController {
         if (p > 1) {
             this.title(request, "第" + p + "页");
         }
-        return this.render("index");
+        return render("index");
     }
 
 
@@ -105,7 +114,7 @@ public class FontIndexController extends BaseController {
     public String links(HttpServletRequest request) {
         List<MetaVo> links = metaService.getMetas(Types.LINK.getType());
         request.setAttribute("links", links);
-        return this.render("links");
+        return render("links");
     }
 
 
@@ -119,7 +128,7 @@ public class FontIndexController extends BaseController {
     public String archives(HttpServletRequest request) {
         List<ArchiveBo> archives = siteService.getArchives();
         request.setAttribute("archives", archives);
-        return this.render("archives");
+        return render("archives");
     }
 
 
@@ -153,7 +162,7 @@ public class FontIndexController extends BaseController {
         name = name.replaceAll("\\+", " ");
         MetaDto metaDto = metaService.getMeta(Types.TAG.getType(), name);
         if (null == metaDto) {
-            return this.render_404();
+            return render_404();
         }
 
         PageInfo<ContentVo> contentsPaginator = contentService.getArticles(metaDto.getMid(), page, limit);
@@ -162,7 +171,7 @@ public class FontIndexController extends BaseController {
         request.setAttribute("type", "标签");
         request.setAttribute("keyword", name);
 
-        return this.render("page-category");
+        return render("page-category");
     }
 
 
@@ -184,7 +193,7 @@ public class FontIndexController extends BaseController {
         page = page < 0 || page > WebConst.MAX_PAGE ? 1 : page;
         MetaDto metaDto = metaService.getMeta(Types.CATEGORY.getType(), keyword);
         if (null == metaDto) {
-            return this.render_404();
+            return render_404();
         }
 
         PageInfo<ContentVo> contentsPaginator = contentService.getArticles(metaDto.getMid(), page, limit);
@@ -194,7 +203,7 @@ public class FontIndexController extends BaseController {
         request.setAttribute("type", "分类");
         request.setAttribute("keyword", keyword);
 
-        return this.render("page-category");
+        return render("page-category");
     }
 
     /**
@@ -645,7 +654,7 @@ public class FontIndexController extends BaseController {
     public String page(@PathVariable("pagename") String pagename, HttpServletRequest request) {
         ContentVo contents = contentService.getContents(pagename);
         if (null == contents) {
-            return this.render_404();
+            return render_404();
         }
         if (contents.getAllowComment()) {
             String cp = request.getParameter("cp");
@@ -657,7 +666,7 @@ public class FontIndexController extends BaseController {
         }
         request.setAttribute("article", contents);
         updateArticleHit(contents.getCid(), contents.getHits());
-        return this.render("page");
+        return render("page");
     }
 
 
@@ -684,7 +693,7 @@ public class FontIndexController extends BaseController {
         }
         List<MetaDto> tag = metaService.getMetaList(Types.TAG.getType(),null,limit);
         request.setAttribute("tag", tag);
-        return this.render("posts");
+        return render("posts");
     }
 
 
@@ -735,7 +744,7 @@ public class FontIndexController extends BaseController {
         if (p > 1) {
             this.title(request, "第" + p + "页");
         }
-        return this.render("postsearch");
+        return render("postsearch");
     }
 
     /**
@@ -842,7 +851,7 @@ public class FontIndexController extends BaseController {
         request.setAttribute("articles", articles);
         request.setAttribute("type", "搜索");
         request.setAttribute("keyword", keyword);
-        return this.render("page-category");
+        return render("page-category");
     }
 
     /**
@@ -900,5 +909,49 @@ public class FontIndexController extends BaseController {
         cookie.setMaxAge(maxAge);
         cookie.setSecure(false);
         response.addCookie(cookie);
+    }
+
+    /**
+     * 上传文件接口
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "upload",method = RequestMethod.POST)
+    @ResponseBody
+    @Transactional(rollbackFor = TipException.class)
+    @ApiOperation(value = "上传文件", notes = "上传文件", httpMethod = "POST")
+    public RestResponseBo upload(HttpServletRequest request, @RequestParam("file") MultipartFile[] multipartFiles) throws IOException {
+        List<String> errorFiles = new ArrayList<>();
+        FontUserVo users = this.fontUser(request);
+        Integer uid = users.getUid();
+        CLASSPATH = request.getSession().getServletContext().getRealPath("upload");
+        try{
+            for (MultipartFile multipartFile : multipartFiles) {
+                String fname = multipartFile.getOriginalFilename();
+                if (multipartFile.getSize() <= WebConst.MAX_FILE_SIZE) {
+                    String fkey = TaleUtils.getFileKey(fname);
+                    String ftype = TaleUtils.isImage(multipartFile.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType();
+                    File file = new File(CLASSPATH+fkey);
+                    try {
+                        FileCopyUtils.copy(multipartFile.getInputStream(),new FileOutputStream(file));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    FontUserVo userVo = new FontUserVo();
+                    userVo.setUid(uid);
+                    users.setHeadPhoto("/upload"+fkey);
+                    request.getSession().setAttribute(WebConst.FONTLOGIN_SESSION_KEY, users);
+                    userVo.setHeadPhoto("/upload"+fkey);
+                    fontUserService.updateByUid(userVo);
+//                    attachService.save(fname, fkey, ftype, uid);
+                } else {
+                    errorFiles.add(fname);
+                }
+            }
+        } catch (Exception e) {
+            return RestResponseBo.fail();
+        }
+        return RestResponseBo.ok(errorFiles);
     }
 }
