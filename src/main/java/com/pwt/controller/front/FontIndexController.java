@@ -460,7 +460,7 @@ public class FontIndexController extends BaseController {
                     String serverPort = "465";
                     Boolean isValidate = true;
                     String userName = "1025103647@qq.com";
-                    String password = "fsuqcgiueuojbdjj";
+                    String password = "kjatcyghapcibcbg";
                     String toMailAddress = email;
                     String emailTitle = "Blog密码找回";
                     String path = request.getContextPath();
