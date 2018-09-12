@@ -59,9 +59,6 @@ public class FontIndexController extends BaseController {
     private ISiteService siteService;
 
     @Autowired
-    private IAttachService attachService;
-
-    @Autowired
     private IFontUserService fontUserService;
 
     public static String CLASSPATH = "";
@@ -272,7 +269,6 @@ public class FontIndexController extends BaseController {
             }catch(IllegalBlockSizeException e){
 
             }
-
             FontUserVo user = fontUserService.login(username, password);
             if (StringUtils.isNotBlank(remeber_me)) {
                 TaleUtils.setCookie(response, user.getUid());
@@ -285,7 +281,6 @@ public class FontIndexController extends BaseController {
                 cookie("remeber_me",remeber_me,0,response);
             }
             request.getSession().setAttribute(WebConst.FONTLOGIN_SESSION_KEY, user);
-//            logService.insertLog(LogActions.LOGIN.getAction(), null, request.getRemoteAddr(), user.getUid());
         } catch (Exception e) {
             error_count = null == error_count ? 1 : error_count + 1;
             String msg = "登录失败";
@@ -335,7 +330,6 @@ public class FontIndexController extends BaseController {
                 this.fontUser(request);
                 fontUserVo=fontUserService.login(form.getUsername(), form.getPassword());
                 request.getSession().setAttribute(WebConst.FONTLOGIN_SESSION_KEY, fontUserVo);
-//              logService.insertLog(LogActions.LOGIN.getAction(), null, request.getRemoteAddr(), fontUserVo.getUid());
                 return RestResponseBo.ok();
             }
             else{
@@ -442,20 +436,25 @@ public class FontIndexController extends BaseController {
         String msg="";
         if(code.equals(request.getSession().getAttribute("rand"))){
             FontUserVo users = fontUserService.findUserByEmail(email);
-            if(users == null){              //用户名不存在
+            //用户名不存在
+            if(users == null){
                 msg = "邮箱不存在,你不会忘记邮箱了吧?";
                 return RestResponseBo.fail(msg);
             }
             else{
                 try{
-                    String secretKey= java.util.UUID.randomUUID().toString();  //密钥
-                    Timestamp outDate = new Timestamp(System.currentTimeMillis()+30*60*1000);//30分钟后过期
+                    //密钥
+                    String secretKey= java.util.UUID.randomUUID().toString();
+                    //30分钟后过期
+                    Timestamp outDate = new Timestamp(System.currentTimeMillis()+30*60*1000);
                     users.setSecretKey(secretKey);
                     users.setOutDate(outDate);
-                    fontUserService.updateByName(users);    //保存到数据库
+                    //保存到数据库
+                    fontUserService.updateByName(users);
                     users = fontUserService.findUserByEmail(email);
                     String key = users.getUsername()+"$"+ users.getOutDate().getTime()/1000*1000 +"$"+secretKey;
-                    String digitalSignature = TaleUtils.MD5encode(key);                 //数字签名
+                    //数字签名
+                    String digitalSignature = TaleUtils.MD5encode(key);
                     //邮箱配置
                     String serverHost = "smtp.qq.com";
                     String serverPort = "465";
@@ -494,38 +493,26 @@ public class FontIndexController extends BaseController {
         System.out.println("生成验证码");
         // 清空缓冲区
         response.reset();
-
         // 注意这里的MIME类型
         response.setContentType("image/png");
-
         // 设置页面不缓存
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
-
         // 创建一个图像,验证码显示的图片大小
         BufferedImage image = new BufferedImage(200, 42,BufferedImage.TYPE_INT_RGB);
-
         // 获取图形上下文
         Graphics g = image.getGraphics();
-
         // 设置背景
         g.setColor(CodeMakerUtil.getRandColor(200,250));
         g.fillRect(0, 0, 200, 42);
-
         for (int i = 0; i < 4; i++)
         {
             CodeMakerUtil.drawCode(g, i);
         }
         //添加干扰线
         CodeMakerUtil.drawNoise(g, 12);
-
-        // 绘制边框
-        //g.setColor(Color.gray);
-        //g.drawRect(0, 0, width - 1, height - 1);
-
         String codeNumbers = CodeMakerUtil.codeNumbers;
-
         // 将验证码内容保存进session中，用于验证用户输入是否正确时使用
         HttpSession session = request.getSession(true);
         session.removeAttribute("rand");
@@ -575,8 +562,9 @@ public class FontIndexController extends BaseController {
                 }
                 else{
                     //获取当前登陆人的加密码
-                    String key = stu.getUsername()+"$"+stu.getOutDate().getTime()/1000*1000+"$"+stu.getSecretKey();//数字签名
-                    String digitalSignature = TaleUtils.MD5encode(key); // 数字签名
+                    String key = stu.getUsername()+"$"+stu.getOutDate().getTime()/1000*1000+"$"+stu.getSecretKey();
+                    //数字签名
+                    String digitalSignature = TaleUtils.MD5encode(key);
                     if(!digitalSignature.equals(sid)){
                         System.out.println("链接加密密码不正确");
                         message="链接加密密码不正确";
@@ -944,7 +932,6 @@ public class FontIndexController extends BaseController {
                     request.getSession().setAttribute(WebConst.FONTLOGIN_SESSION_KEY, users);
                     userVo.setHeadPhoto("/upload"+fkey);
                     fontUserService.updateByUid(userVo);
-//                    attachService.save(fname, fkey, ftype, uid);
                 } else {
                     errorFiles.add(fname);
                 }
