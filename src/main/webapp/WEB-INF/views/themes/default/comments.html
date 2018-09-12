@@ -3,7 +3,7 @@
 <body>
 <div th:if="${article}!=null">
     <div th:id="${article.cid ?: 0}" class="comment-container" style="flex: 0 0 auto;">
-        <div id="comments" class="clearfix" style="min-width:800px;max-width: 0;margin: 0 32%;">
+        <div id="comments" class="clearfix" style="min-width:800px;max-width: 0;margin: 0 29%;">
             <div th:if="${article.allowComment}">
                 <span class="response">
                 <th:block th:if="${session.login_fontUser}">

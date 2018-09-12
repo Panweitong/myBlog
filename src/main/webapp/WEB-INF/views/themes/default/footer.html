@@ -23,7 +23,6 @@
             </div>
             <div class="col-lg-6 text-center text-lg-right my-auto">
                 <ul class="list-inline mb-0">
-
                     <th:block th:each="index:${commons.social()}">
                         <th:block th:switch="${index.key}">
                             <th:block th:case="'weibo'">
@@ -68,8 +67,6 @@
                             </th:block>
                         </th:block>
                     </th:block>
-
-
                     <!-- qq -->
                     <li class="list-inline-item mr-3">
                         <a href="tencent://message/?uin=1025103647&Site=在线QQ&amp;Menu=yes" class="text-white">
@@ -78,7 +75,7 @@
                     </li>
                     <!-- wechat -->
                     <img id="id_img_wechat_qrcode" th:src="@{/static/user/img/wechat_qr.png}" alt="Wechat" class="img_shadow"
-                         style="display:none;width: 200px;position: absolute;bottom: 50px;right: 0;">
+                         style="display:none;width: 200px;position: absolute;bottom: 50px;right: 0;z-index:1;">
                     <li class="list-inline-item">
                         <a class="text-white" id="id_a_wechat">
                             <i class="fa fa-wechat fa-2x fa-fw"></i>
