@@ -24,7 +24,8 @@ public class MailUtil {
         mailInfo.setMailServerPort(serverPort);
         mailInfo.setValidate(isValidate);
         mailInfo.setUserName(userName);
-        mailInfo.setPassword(password);// 您的邮箱密码
+        // 您的邮箱密码
+        mailInfo.setPassword(password);
         mailInfo.setFromAddress(userName);
         mailInfo.setToAddress(toMailAddress);
         mailInfo.setSubject(subtitle);
@@ -32,6 +33,7 @@ public class MailUtil {
         // 这个类主要来发送邮件
         SimpleMailSender sms = new SimpleMailSender();
         //  sms.sendTextMail(mailInfo);// 发送文体格式
-        SimpleMailSender.sendHtmlMail(mailInfo);// 发送html格式
+        // 发送html格式
+        SimpleMailSender.sendHtmlMail(mailInfo);
     }
 }

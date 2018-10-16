@@ -44,12 +44,12 @@
         <div class="common-title">
             <th:block th:text="${type}"/> : <th:block th:text="${keyword}"/>
         </div>
-        <th:block th:if="${commons.is_empty(articles)}">
+        <th:block th:if="${commons.isPageEmpty(articles)}">
             <div>
                 <p>抱歉，还没有相关文章.</p>
             </div>
         </th:block>
-        <th:block th:unless="${commons.is_empty(articles)}">
+        <th:block th:unless="${commons.isPageEmpty(articles)}">
             <div class="post-lists">
                 <div class="post-lists-body">
                     <th:block th:each="article : ${articles.list}">
@@ -60,7 +60,7 @@
                                         <a th:href="${commons.permalink(article)}" th:text="${article.title}"></a>
                                     </div>
                                     <div class="item-meta clearfix">
-                                        <div th:class="'item-meta-ico '+${commons.show_icon(article.cid)} "
+                                        <div th:class="'item-meta-ico '+${commons.showIcon(article.cid)} "
                                              th:style="'background: url('+@{/static/user/img/bg-ico.png}+') no-repeat;background-size: 40px auto;'"></div>
                                         <div class="item-meta-date">发布于 <th:block th:text="${commons.fmtdate(article.created)}"/></div>
                                     </div>

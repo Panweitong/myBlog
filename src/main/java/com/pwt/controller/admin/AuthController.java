@@ -52,7 +52,7 @@ public class AuthController extends BaseController {
      * 管理后台登录
      * @param username
      * @param password
-     * @param remeber_me
+     * @param remeberMe
      * @param request
      * @param response
      * @return
@@ -62,24 +62,25 @@ public class AuthController extends BaseController {
     @ApiOperation(value = "管理后台登录", notes = "管理后台登录", httpMethod = "POST")
     public RestResponseBo doLogin(@RequestParam String username,
                                   @RequestParam String password,
-                                  @RequestParam(required = false) String remeber_me,
+                                  @RequestParam(required = false) String remeberMe,
                                   HttpServletRequest request,
                                   HttpServletResponse response) {
 
-        Integer error_count = cache.get("login_error_count");
+        Integer errorCount = cache.get("login_error_count");
         try {
             UserVo user = usersService.login(username, password);
             request.getSession().setAttribute(WebConst.LOGIN_SESSION_KEY, user);
-            if (StringUtils.isNotBlank(remeber_me)) {
+            if (StringUtils.isNotBlank(remeberMe)) {
                 TaleUtils.setCookie(response, user.getUid());
             }
             logService.insertLog(LogActions.LOGIN.getAction(), null, request.getRemoteAddr(), user.getUid());
         } catch (Exception e) {
-            error_count = null == error_count ? 1 : error_count + 1;
-            if (error_count > 3) {
+            errorCount = null == errorCount ? 1 : errorCount + 1;
+            int count = 3;
+            if (errorCount > count) {
                 return RestResponseBo.fail("您输入密码已经错误超过3次，请10分钟后尝试");
             }
-            cache.set("login_error_count", error_count, 10 * 60);
+            cache.set("login_error_count", errorCount, 10 * 60);
             String msg = "登录失败";
             if (e instanceof TipException) {
                 msg = e.getMessage();
@@ -105,7 +106,7 @@ public class AuthController extends BaseController {
         response.addCookie(cookie);
         try {
             //response.sendRedirect(Commons.site_url());
-            response.sendRedirect(Commons.site_login());
+            response.sendRedirect(Commons.siteLogin());
             System.out.println("index-----------logout");
         } catch (IOException e) {
             e.printStackTrace();

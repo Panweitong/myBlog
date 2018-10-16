@@ -1,16 +1,60 @@
 package com.pwt.dto;
 
 public enum Types {
+
+    /**
+     *
+     */
     TAG("tag"),
+
+    /**
+     *
+     */
     CATEGORY("category"),
+
+    /**
+     *
+     */
     ARTICLE("post"),
+
+    /**
+     *
+     */
     PUBLISH("publish"),
+
+    /**
+     *
+     */
     PAGE("page"),
+
+    /**
+     *
+     */
     DRAFT("draft"),
+
+    /**
+     *
+     */
     LINK("link"),
+
+    /**
+     *
+     */
     IMAGE("image"),
+
+    /**
+     *
+     */
     FILE("file"),
-    CSRF_TOKEN("csrf_token"),
+
+    /**
+     *
+     */
+    CSRF_TOKEN("csrfToken"),
+
+    /**
+     *
+     */
     COMMENTS_FREQUENCY("comments:frequency"),
 
     /**

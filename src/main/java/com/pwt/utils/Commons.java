@@ -49,7 +49,7 @@ public final class Commons {
      * @param paginator
      * @return
      */
-    public static boolean is_empty(PageInfo paginator) {
+    public static boolean isPageEmpty(PageInfo paginator) {
         return paginator == null || (paginator.getList() == null) || (paginator.getList().size() == 0);
     }
 
@@ -58,11 +58,11 @@ public final class Commons {
      *
      * @return
      */
-    public static String site_url() {
-        return site_url("");
+    public static String siteUrl() {
+        return siteUrl("");
     }
 
-    public static String site_index() {
+    public static String siteIndex() {
         return "index";
     }
 
@@ -70,7 +70,7 @@ public final class Commons {
      * 在管理员页面退出登录返回到登录界面
      * @return
      */
-    public static String site_login() {
+    public static String siteLogin() {
         return "/myBlog/admin/login";
     }
 
@@ -80,8 +80,8 @@ public final class Commons {
      * @param sub 后面追加的地址
      * @return
      */
-    public static String site_url(String sub) {
-        return site_option("site_url") + sub;
+    public static String siteUrl(String sub) {
+        return siteOption("siteUrl") + sub;
     }
 
     /**
@@ -89,8 +89,8 @@ public final class Commons {
      *
      * @return
      */
-    public static String site_title() {
-        return site_option("site_title");
+    public static String siteTitle() {
+        return siteOption("site_title");
     }
 
     /**
@@ -99,8 +99,8 @@ public final class Commons {
      * @param key
      * @return
      */
-    public static String site_option(String key) {
-        return site_option(key, "");
+    public static String siteOption(String key) {
+        return siteOption(key, "");
     }
 
     /**
@@ -110,7 +110,7 @@ public final class Commons {
      * @param defalutValue 默认值
      * @return
      */
-    public static String site_option(String key, String defalutValue) {
+    public static String siteOption(String key, String defalutValue) {
         if (StringUtils.isBlank(key)) {
             return "";
         }
@@ -141,8 +141,8 @@ public final class Commons {
      *
      * @return
      */
-    public static String theme_url() {
-        return site_url(Commons.THEME);
+    public static String themeUrl() {
+        return siteUrl(Commons.THEME);
     }
 
     /**
@@ -151,8 +151,8 @@ public final class Commons {
      * @param sub
      * @return
      */
-    public static String theme_url(String sub) {
-        return site_url(Commons.THEME + sub);
+    public static String themeUrl(String sub) {
+        return siteUrl(Commons.THEME + sub);
     }
 
     /**
@@ -166,7 +166,7 @@ public final class Commons {
         if (StringUtils.isBlank(email)) {
             return avatarUrl;
         }
-        String hash = TaleUtils.MD5encode(email.trim().toLowerCase());
+        String hash = TaleUtils.md5Encode(email.trim().toLowerCase());
         return avatarUrl + "/" + hash;
     }
 
@@ -200,7 +200,7 @@ public final class Commons {
      * @return
      */
     public static String permalink(Integer cid, String slug) {
-        return site_url("/myBlog/article/" + (StringUtils.isNotBlank(slug) ? slug : cid.toString()));
+        return siteUrl("/myBlog/article/" + (StringUtils.isNotBlank(slug) ? slug : cid.toString()));
     }
 
     /**
@@ -233,7 +233,7 @@ public final class Commons {
      * @param categories
      * @return
      */
-    public static String show_categories(String categories) throws UnsupportedEncodingException {
+    public static String showCategories(String categories) throws UnsupportedEncodingException {
         if (StringUtils.isNotBlank(categories)) {
             String[] arr = categories.split(",");
             StringBuffer sbuf = new StringBuffer();
@@ -242,7 +242,7 @@ public final class Commons {
             }
             return sbuf.toString();
         }
-        return show_categories("默认分类");
+        return showCategories("默认分类");
     }
 
     /**
@@ -251,7 +251,7 @@ public final class Commons {
      * @param tags
      * @return
      */
-    public static String show_tags(String tags) throws UnsupportedEncodingException {
+    public static String showTags(String tags) throws UnsupportedEncodingException {
         if (StringUtils.isNotBlank(tags)) {
             String[] arr = tags.split(",");
             StringBuffer sbuf = new StringBuffer();
@@ -303,7 +303,7 @@ public final class Commons {
      *
      * @return
      */
-    public static String show_thumb(ContentVo contents) {
+    public static String showThumb(ContentVo contents) {
         int cid = contents.getCid();
         int size = cid % 20;
         size = size == 0 ? 1 : size;
@@ -316,7 +316,7 @@ public final class Commons {
      * @param limit
      * @return
      */
-    public static List<ContentVo> recent_articles(int limit) {
+    public static List<ContentVo> recentArticles(int limit) {
         if (null == siteService) {
             return EMPTY;
         }
@@ -329,7 +329,7 @@ public final class Commons {
      * @param limit
      * @return
      */
-    public static List<CommentVo> recent_comments(int limit) {
+    public static List<CommentVo> recentComments(int limit) {
         if (null == siteService) {
             return EMPTY;
         }
@@ -378,7 +378,7 @@ public final class Commons {
      * @param coid
      * @return
      */
-    public static String comment_at(Integer coid) {
+    public static String commentAt(Integer coid) {
         CommentVo comments = siteService.getComment(coid);
         if (null != comments) {
             return "<a href=\"#comment-" + coid + "\">@" + comments.getAuthor() + "</a>";
@@ -403,15 +403,15 @@ public final class Commons {
      *
      * @return
      */
-    public static String show_thumb(String content) {
+    public static String showThumb(String content) {
         content = TaleUtils.mdToHtml(content);
         if (content.contains("<img")) {
             String img = "";
-            String regEx_img = "<img.*src\\s*=\\s*(.*?)[^>]*?>";
-            Pattern p_image = Pattern.compile(regEx_img, Pattern.CASE_INSENSITIVE);
-            Matcher m_image = p_image.matcher(content);
-            if (m_image.find()) {
-                img = img + "," + m_image.group();
+            String regExImg = "<img.*src\\s*=\\s*(.*?)[^>]*?>";
+            Pattern pImage = Pattern.compile(regExImg, Pattern.CASE_INSENSITIVE);
+            Matcher mImage = pImage.matcher(content);
+            if (mImage.find()) {
+                img = img + "," + mImage.group();
                 // //匹配src
                 Matcher m = Pattern.compile("src\\s*=\\s*\'?\"?(.*?)(\'|\"|>|\\s+)").matcher(img);
                 if (m.find()) {
@@ -430,7 +430,7 @@ public final class Commons {
      * @param cid
      * @return
      */
-    public static String show_icon(int cid) {
+    public static String showIcon(int cid) {
         return ICONS[cid % ICONS.length];
     }
 

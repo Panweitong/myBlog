@@ -118,7 +118,7 @@ public class IndexController extends BaseController {
             return RestResponseBo.fail("请确认信息输入完整");
         }
 
-        if (!users.getPassword().equals(TaleUtils.MD5encode(users.getUsername() + oldPassword))) {
+        if (!users.getPassword().equals(TaleUtils.md5Encode(users.getUsername() + oldPassword))) {
             return RestResponseBo.fail("旧密码错误");
         }
         if (password.length() < 6 || password.length() > 14) {
@@ -128,7 +128,7 @@ public class IndexController extends BaseController {
         try {
             UserVo temp = new UserVo();
             temp.setUid(users.getUid());
-            String pwd = TaleUtils.MD5encode(users.getUsername() + password);
+            String pwd = TaleUtils.md5Encode(users.getUsername() + password);
             temp.setPassword(pwd);
             userService.updateByUid(temp);
             logService.insertLog(LogActions.UP_PWD.getAction(), null, request.getRemoteAddr(), this.getUid(request));

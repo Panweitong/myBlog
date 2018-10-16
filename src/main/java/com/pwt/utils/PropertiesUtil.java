@@ -22,7 +22,7 @@ public class PropertiesUtil {
 
     private static ResourceLoader resourceLoader = new DefaultResourceLoader();
 
-    private static final Properties properties = loadProperties("jdbc.properties");
+    private static final Properties PROPERTIES = loadProperties("jdbc.properties");
 
     /**
      * 取出Property，但以System的Property优先,取不到返回空字符串.
@@ -32,8 +32,8 @@ public class PropertiesUtil {
         if (systemProperty != null) {
             return systemProperty;
         }
-        if (properties.containsKey(key)) {
-            return properties.getProperty(key);
+        if (PROPERTIES.containsKey(key)) {
+            return PROPERTIES.getProperty(key);
         }
         return "";
     }

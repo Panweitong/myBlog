@@ -42,12 +42,12 @@ public interface ISiteService {
 
     /**
      * 系统备份
-     * @param bk_type
-     * @param bk_path
+     * @param bkType
+     * @param bkPath
      * @param fmt
      * @return
      */
-    BackResponseBo backup(String bk_type, String bk_path, String fmt,String CLASSPATH) throws Exception;
+    BackResponseBo backup(String bkType, String bkPath, String fmt,String classPath) throws Exception;
 
 
     /**

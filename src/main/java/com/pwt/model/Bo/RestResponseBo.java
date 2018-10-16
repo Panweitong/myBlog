@@ -3,6 +3,7 @@ package com.pwt.model.Bo;
 /**
  * rest返回对象
  *^
+ * @author ASUS
  * @param <T>
  */
 public class RestResponseBo<T> {

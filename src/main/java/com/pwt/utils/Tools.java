@@ -17,7 +17,7 @@ import java.util.Random;
  * Created by pwt on 2017/3/9.
  */
 public class Tools {
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     public static void copyFileUsingFileChannels(File source, File dest) throws IOException {
         FileChannel inputChannel = null;
@@ -35,7 +35,7 @@ public class Tools {
     }
 
     public static int rand(int min, int max) {
-        return random.nextInt(max) % (max - min + 1) + min;
+        return RANDOM.nextInt(max) % (max - min + 1) + min;
     }
 
     public static String flowAutoShow(int value) {

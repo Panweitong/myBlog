@@ -17,7 +17,7 @@ public class DateKit {
     public static final int INTERVAL_HOUR = 5;
     public static final int INTERVAL_MINUTE = 6;
     public static final int INTERVAL_SECOND = 7;
-    public static final Date tempDate = new Date((new Long("-2177481952000")).longValue());
+    public static final Date TEMP_DATE = new Date((new Long("-2177481952000")).longValue());
     private static List<SimpleDateFormat> dateFormats = new ArrayList(12) {
         private static final long serialVersionUID = 2249396579858199535L;
 
@@ -41,15 +41,21 @@ public class DateKit {
     }
 
     public static boolean isToday(Date date) {
-        Date now = new Date();
+        Calendar ca = Calendar.getInstance();
+        SimpleDateFormat sdfYear=new SimpleDateFormat("yyyy");
+        String year=sdfYear.format(date);
+        SimpleDateFormat sdfMonth=new SimpleDateFormat("MM");
+        String month=sdfMonth.format(date);
+        SimpleDateFormat sdfDate=new SimpleDateFormat("dd");
+        String day=sdfDate.format(date);
         boolean result = true;
-        result &= date.getYear() == now.getYear();
-        result &= date.getMonth() == now.getMonth();
-        result &= date.getDate() == now.getDate();
+        result &= Integer.parseInt(year) == ca.get(Calendar.YEAR);
+        result &= Integer.parseInt(month) == ca.get(Calendar.MONTH) + 1;
+        result &= Integer.parseInt(day) == ca.get(Calendar.DATE);
         return result;
     }
 
-    public static long DaysBetween(Date date1, Date date2) {
+    public static long daysBetween(Date date1, Date date2) {
         if(date2 == null) {
             date2 = new Date();
         }
@@ -103,7 +109,7 @@ public class DateKit {
     public static String birthdayFormat(Date date) {
         if(date != null) {
             SimpleDateFormat format = null;
-            if(date.before(tempDate)) {
+            if(date.before(TEMP_DATE)) {
                 format = new SimpleDateFormat("MM-dd");
             } else {
                 format = new SimpleDateFormat("yyyy-MM-dd");
@@ -267,6 +273,9 @@ public class DateKit {
                 break;
             case 7:
                 time += (long)n;
+                break;
+            default:
+                break;
         }
 
         Date result = new Date();
@@ -310,6 +319,9 @@ public class DateKit {
                     break;
                 case 7:
                     result = intervalTime / 1L;
+                    break;
+                default:
+                    break;
             }
 
             if(tmp > 0L) {
@@ -668,5 +680,4 @@ public class DateKit {
         tomorrow.set(13, 0);
         return Long.valueOf(String.valueOf(tomorrow.getTimeInMillis()).substring(0, 10));
     }
-
 }

@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta http-equiv="Cache-Control" content="no-transform"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
-    <meta name="keywords" th:content="${keywords ?: commons.site_option('site_keywords')}"/>
-    <meta name="description" th:content="${description ?:commons.site_option('site_description')}"/>
+    <meta name="keywords" th:content="${keywords ?: commons.siteOption('site_keywords')}"/>
+    <meta name="description" th:content="${description ?:commons.siteOption('site_description')}"/>
     <link rel="shortcut icon" th:href="@{/static/user/img/favicon.ico}"/>
     <link rel="apple-touch-icon" th:href="@{/static/user/img/apple-touch-icon.png}"/>
-    <title><th:block th:text="${title ?: '首页'}+' - '+${commons.site_option('site_title','My Blog')}"></th:block></title>
+    <title><th:block th:text="${title ?: '首页'}+' - '+${commons.siteOption('site_title','My Blog')}"></th:block></title>
     <link th:href="@{//cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css}" rel="stylesheet"/>
     <link th:href="@{/static/user/css/style.min.css}" rel="stylesheet"/>
     <link th:href="@{/static/user/css/footer.css}" rel="stylesheet"/>
@@ -71,19 +71,19 @@
                     <a class="nav-link"><!-- 占位 --></a>
                 </li>
                 <li class="nav-item active" id="index">
-                    <a class="nav-link" th:href="${commons.site_url('/myBlog/index')}">首页</a>
+                    <a class="nav-link" th:href="${commons.siteUrl('/myBlog/index')}">首页</a>
                 </li>
                 <li class="nav-item no-active">
-                    <a class="nav-link" th:href="${commons.site_url('/myBlog/archives')}">归档</a>
+                    <a class="nav-link" th:href="${commons.siteUrl('/myBlog/archives')}">归档</a>
                 </li>
                 <li class="nav-item no-active">
-                    <a class="nav-link" th:href="${commons.site_url('/myBlog/post')}">博客</a>
+                    <a class="nav-link" th:href="${commons.siteUrl('/myBlog/post')}">博客</a>
                 </li>
                 <li class="nav-item no-active">
-                    <a class="nav-link" th:href="${commons.site_url('/myBlog/about')}">关于</a>
+                    <a class="nav-link" th:href="${commons.siteUrl('/myBlog/about')}">关于</a>
                 </li>
                 <li class="nav-item no-active">
-                    <a class="nav-link" th:href="${commons.site_url('/myBlog/paper')}">简历</a>
+                    <a class="nav-link" th:href="${commons.siteUrl('/myBlog/paper')}">简历</a>
                 </li>
                 <li class="nav-item no-active">
                     <a class="nav-link" href="#"></a>

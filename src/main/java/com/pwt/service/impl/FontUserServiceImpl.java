@@ -30,7 +30,7 @@ public class FontUserServiceImpl implements IFontUserService {
         Integer uid = 0;
         if (StringUtils.isNotBlank(userVo.getUsername()) && StringUtils.isNotBlank(userVo.getEmail())) {
 //            用户密码加密
-             String encodePwd = TaleUtils.MD5encode(userVo.getPassword());
+             String encodePwd = TaleUtils.md5Encode(userVo.getPassword());
              userVo.setPassword(encodePwd);
              try{
                  userDao.insertSelective(userVo);
@@ -63,7 +63,7 @@ public class FontUserServiceImpl implements IFontUserService {
         if (count < 1) {
             throw new TipException("不存在该用户");
         }
-        String pwd = TaleUtils.MD5encode(password);
+        String pwd = TaleUtils.md5Encode(password);
         criteria.andPasswordEqualTo(pwd);
         List<FontUserVo> userVos = userDao.selectByExample(example);
         if (userVos.size()!=1) {

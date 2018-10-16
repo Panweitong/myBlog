@@ -45,7 +45,7 @@ public class TaleUtils {
     /**
      * 一个月
      */
-    private static final int one_month = 30 * 24 * 60 * 60;
+    private static final int ONE_MONTH = 30 * 24 * 60 * 60;
     /**
      * 匹配邮箱正则
      */
@@ -78,7 +78,7 @@ public class TaleUtils {
      * @return
      */
     public static int getCurrentTime() {
-        return (int) (new Date().getTime() / 1000);
+        return (int) (System.currentTimeMillis() / 1000);
     }
 
     /**
@@ -164,7 +164,7 @@ public class TaleUtils {
      * @param source 数据源
      * @return 加密字符串
      */
-    public static String MD5encode(String source) {
+    public static String md5Encode(String source) {
         if (StringUtils.isBlank(source)) {
             return null;
         }
@@ -191,20 +191,22 @@ public class TaleUtils {
      * @return
      */
     public static DataSource getNewDataSource() {
-        if (newDataSource == null) synchronized (TaleUtils.class) {
-            if (newDataSource == null) {
-                Properties properties = TaleUtils.getPropFromFile("jdbc.properties");
-                if (properties.size() == 0) {
-                    return newDataSource;
+        if (newDataSource == null) {
+            synchronized (TaleUtils.class) {
+                if (newDataSource == null) {
+                    Properties properties = TaleUtils.getPropFromFile("jdbc.properties");
+                    if (properties.size() == 0) {
+                        return newDataSource;
+                    }
+                    DriverManagerDataSource managerDataSource = new DriverManagerDataSource();
+                    //        TODO 对不同数据库支持
+                    managerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                    managerDataSource.setPassword(properties.getProperty("password"));
+                    String str = properties.getProperty("jdbcUrl");
+                    managerDataSource.setUrl(str);
+                    managerDataSource.setUsername(properties.getProperty("username"));
+                    newDataSource = managerDataSource;
                 }
-                DriverManagerDataSource managerDataSource = new DriverManagerDataSource();
-                //        TODO 对不同数据库支持
-                managerDataSource.setDriverClassName("com.mysql.jdbc.Driver");
-                managerDataSource.setPassword(properties.getProperty("password"));
-                String str = properties.getProperty("jdbcUrl");
-                managerDataSource.setUrl(str);
-                managerDataSource.setUsername(properties.getProperty("username"));
-                newDataSource = managerDataSource;
             }
         }
         return newDataSource;
@@ -445,13 +447,13 @@ public class TaleUtils {
 
     public static String getFileKey(String name) {
         String prefix = "/";
-        if (!new File(AttachController.CLASSPATH).exists()) {
-            new File(AttachController.CLASSPATH).mkdirs();
+        if (!new File(AttachController.classPath).exists()) {
+            new File(AttachController.classPath).mkdirs();
         }
 
         name = StringUtils.trimToNull(name);
         if (name == null) {
-            return  prefix + UUID.UU32() + "." + null;
+            return  prefix + UUID.uu32() + "." + null;
         } else {
             name = name.replace('\\', '/');
             name = name.substring(name.lastIndexOf("/") + 1);
@@ -460,7 +462,7 @@ public class TaleUtils {
             if (index >= 0) {
                 ext = StringUtils.trimToNull(name.substring(index + 1));
             }
-            return prefix + UUID.UU32() + "." + (ext == null ? null : (ext));
+            return prefix + UUID.uu32() + "." + (ext == null ? null : (ext));
         }
     }
 

@@ -76,7 +76,7 @@ public class BaseController {
         return this.user(request).getUid();
     }
 
-    public static String render_404() {
+    public static String renderTo404() {
         return "comm/error_404";
     }
 

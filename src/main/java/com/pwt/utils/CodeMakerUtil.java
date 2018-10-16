@@ -7,10 +7,14 @@ public class CodeMakerUtil {
 
     private static final long serialVersionUID = 1L;
 
-    //生成随机类
+    /**
+     * 生成随机类
+     */
     static Random random = new Random();
 
-    //验证码字体
+    /**
+     * 验证码字体
+     */
     private static Font[] codeFont =
             {
                     new Font("Times New Roman", Font.PLAIN,35),
@@ -18,7 +22,10 @@ public class CodeMakerUtil {
                     new Font("Times New Roman", Font.PLAIN,35),
                     new Font("Times New Roman", Font.PLAIN, 35)
             };
-    //验证码数字颜色
+
+    /**
+     * 验证码数字颜色
+     */
     private static Color[] color = {
                         Color.BLACK, Color.RED, Color.DARK_GRAY, Color.BLUE
                     };
@@ -29,7 +36,9 @@ public class CodeMakerUtil {
 
     private static int height = 42;
 
-    // 绘制验证码
+    /**
+     * 绘制验证码
+      */
     public static void drawCode(Graphics graphics, int i)
     {
         String number = String.valueOf(random.nextInt(10));
@@ -41,7 +50,11 @@ public class CodeMakerUtil {
         codeNumbers += number;
     }
 
-    // 绘制干扰线
+    /**
+     * 绘制干扰线
+     * @param graphics
+     * @param lineNumber
+     */
     public static void drawNoise(Graphics graphics, int lineNumber)
     {
         graphics.setColor(getRandColor(160,200));
@@ -57,8 +70,12 @@ public class CodeMakerUtil {
 
     public static Color getRandColor(int fc, int bc){//给定范围获得随机颜色
         Random random = new Random();
-        if(fc>255) fc=255;
-        if(bc>255) bc=255;
+        if(fc>255) {
+            fc=255;
+        }
+        if(bc>255) {
+            bc=255;
+        }
         int r=fc+random.nextInt(bc-fc);
         int g=fc+random.nextInt(bc-fc);
         int b=fc+random.nextInt(bc-fc);

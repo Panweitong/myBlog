@@ -81,22 +81,22 @@ public class SiteServiceImpl implements ISiteService {
     }
 
     @Override
-    public BackResponseBo backup(String bk_type, String bk_path, String fmt,String CLASSPATH) throws Exception {
+    public BackResponseBo backup(String bkType, String bkPath, String fmt,String classPath) throws Exception {
         BackResponseBo backResponse = new BackResponseBo();
-        if (bk_type.equals("attach")) {
-            if (StringUtils.isBlank(bk_path)) {
+        if ("attach".equals(bkType)) {
+            if (StringUtils.isBlank(bkPath)) {
                 throw new TipException("请输入备份文件存储路径");
             }
-            if (!(new File(bk_path)).isDirectory()) {
+            if (!(new File(bkPath)).isDirectory()) {
                 throw new TipException("请输入一个存在的目录");
             }
-            String bkAttachDir = AttachController.CLASSPATH + "upload";
-            String bkThemesDir = AttachController.CLASSPATH + "templates/themes";
+            String bkAttachDir = classPath;
+            String bkThemesDir = classPath + "templates/themes";
 
             String fname = DateKit.dateFormat(new Date(), fmt) + "_" + TaleUtils.getRandomNumber(5) + ".zip";
 
-            String attachPath = bk_path + "/" + "attachs_" + fname;
-            String themesPath = bk_path + "/" + "themes_" + fname;
+            String attachPath = bkPath + "/" + "attachs_" + fname;
+            String themesPath = bkPath + "/" + "themes_" + fname;
 
             ZipUtils.zipFolder(bkAttachDir, attachPath);
             ZipUtils.zipFolder(bkThemesDir, themesPath);
@@ -104,9 +104,9 @@ public class SiteServiceImpl implements ISiteService {
             backResponse.setAttachPath(attachPath);
             backResponse.setThemePath(themesPath);
         }
-        if (bk_type.equals("db")) {
+        if ("db".equals(bkType)) {
 
-            String bkAttachDir = CLASSPATH +'/';
+            String bkAttachDir = classPath +'/';
             if (!(new File(bkAttachDir)).isDirectory()) {
                 File file = new File(bkAttachDir);
                 if (!file.exists()) {

@@ -17,7 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 自定义拦截器
- * Created by pwt on 2017/3/9.
+ *
+ * @author pwt
+ * @date 2017/3/9
  */
 @Component
 public class BaseInterceptor implements HandlerInterceptor {
@@ -67,11 +69,11 @@ public class BaseInterceptor implements HandlerInterceptor {
         }
 
         //设置get请求的token
-        if (request.getMethod().equals("GET")) {
-                String csrf_token = UUID.UU64();
+        if ("GET".equals(request.getMethod())) {
+                String csrfToken = UUID.uu64();
                 // 默认存储30分钟
-                cache.hset(Types.CSRF_TOKEN.getType(), csrf_token, uri, 30 * 60);
-                request.setAttribute("_csrf_token", csrf_token);
+                cache.hset(Types.CSRF_TOKEN.getType(), csrfToken, uri, 30 * 60);
+                request.setAttribute("csrfToken", csrfToken);
         }
         return true;
 
@@ -79,7 +81,8 @@ public class BaseInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
-        httpServletRequest.setAttribute("commons", commons);//一些工具类和公共方法
+        httpServletRequest.setAttribute("commons", commons);
+        //一些工具类和公共方法
         httpServletRequest.setAttribute("adminCommons", adminCommons);
     }
 

@@ -42,7 +42,9 @@ import java.util.List;
 
 /**
  * 首页
- * Created by pwt on 2017/3/8 008.
+ *
+ * @author pwt
+ * @date 2017/3/8 008
  */
 @Controller
 @RequestMapping(value = "/")
@@ -61,7 +63,7 @@ public class FontIndexController extends BaseController {
     @Autowired
     private IFontUserService fontUserService;
 
-    public static String CLASSPATH = "";
+    public static String classPath = "";
 
     @Autowired
     private ICommentService commentService;
@@ -159,7 +161,7 @@ public class FontIndexController extends BaseController {
         name = name.replaceAll("\\+", " ");
         MetaDto metaDto = metaService.getMeta(Types.TAG.getType(), name);
         if (null == metaDto) {
-            return render_404();
+            return renderTo404();
         }
 
         PageInfo<ContentVo> contentsPaginator = contentService.getArticles(metaDto.getMid(), page, limit);
@@ -190,7 +192,7 @@ public class FontIndexController extends BaseController {
         page = page < 0 || page > WebConst.MAX_PAGE ? 1 : page;
         MetaDto metaDto = metaService.getMeta(Types.CATEGORY.getType(), keyword);
         if (null == metaDto) {
-            return render_404();
+            return renderTo404();
         }
 
         PageInfo<ContentVo> contentsPaginator = contentService.getArticles(metaDto.getMid(), page, limit);
@@ -230,11 +232,11 @@ public class FontIndexController extends BaseController {
             Cookie[] cookie = request.getCookies();
             for (int i = 0; i < cookie.length; i++) {
                 Cookie cook = cookie[i];
-                if(cook.getName().equalsIgnoreCase("password")){
+                if("password".equalsIgnoreCase(cook.getName())){
                     fontUserVo.setPassword(cook.getValue().toString());
                 }
-                else if(cook.getName().equalsIgnoreCase("remeber_me")){
-                    request.setAttribute("remeber_me",cook.getValue().toString());
+                else if("remeberMe".equalsIgnoreCase(cook.getName())){
+                    request.setAttribute("remeberMe",cook.getValue().toString());
                 }
             }
             request.setAttribute("fontUser",fontUserVo);
@@ -248,7 +250,7 @@ public class FontIndexController extends BaseController {
      * 前台登录
      * @param username
      * @param password
-     * @param remeber_me
+     * @param remeberMe
      * @param request
      * @param response
      * @return
@@ -258,11 +260,11 @@ public class FontIndexController extends BaseController {
     @ApiOperation(value = "前台登录", notes = "前台登录", httpMethod = "POST")
     public RestResponseBo doLogin(@RequestParam String username,
                                   @RequestParam String password,
-                                  @RequestParam(required = false) String remeber_me,
+                                  @RequestParam(required = false) String remeberMe,
                                   org.apache.catalina.servlet4preview.http.HttpServletRequest request,
                                   HttpServletResponse response) {
 
-        Integer error_count = cache.get("login_error_count");
+        Integer errorCount = cache.get("login_error_count");
         try {
             try{
                 password = AesUtil.aesDecrypt(password,"abcdefgabcdefg12");
@@ -270,24 +272,25 @@ public class FontIndexController extends BaseController {
 
             }
             FontUserVo user = fontUserService.login(username, password);
-            if (StringUtils.isNotBlank(remeber_me)) {
+            if (StringUtils.isNotBlank(remeberMe)) {
                 TaleUtils.setCookie(response, user.getUid());
                 cookie("password",password,5*365*24*60*60,response);
-                cookie("remeber_me",remeber_me,5*365*24*60*60,response);
+                cookie("remeberMe",remeberMe,5*365*24*60*60,response);
             }
             else{
                 TaleUtils.setCookie(response, user.getUid());
                 cookie("password",password,0,response);
-                cookie("remeber_me",remeber_me,0,response);
+                cookie("remeberMe",remeberMe,0,response);
             }
             request.getSession().setAttribute(WebConst.FONTLOGIN_SESSION_KEY, user);
         } catch (Exception e) {
-            error_count = null == error_count ? 1 : error_count + 1;
+            errorCount = null == errorCount ? 1 : errorCount + 1;
             String msg = "登录失败";
-            if (error_count > 3) {
+            int count= 3;
+            if (errorCount > count) {
                 return RestResponseBo.fail("您输入密码已经错误超过3次，请10分钟后尝试");
             }
-            cache.set("login_error_count", error_count, 10 * 60);
+            cache.set("login_error_count", errorCount, 10 * 60);
             if (e instanceof TipException) {
                 msg = e.getMessage();
             } else {
@@ -396,12 +399,12 @@ public class FontIndexController extends BaseController {
                                      @RequestParam String confirmPassword,
                                      HttpServletRequest request,HttpServletResponse response){
         FontUserVo fontUserVo = fontUserService.queryUserById(((FontUserVo) request.getSession().getAttribute("login_fontUser")).getUid());
-        String encodePwd = TaleUtils.MD5encode(oldPassword);
+        String encodePwd = TaleUtils.md5Encode(oldPassword);
         if(encodePwd.equals(fontUserVo.getPassword())){
             if(newPassword.equals(confirmPassword)){
                 FontUserVo userVo = new FontUserVo();
                 userVo.setUid(((FontUserVo) request.getSession().getAttribute("login_fontUser")).getUid());
-                userVo.setPassword(TaleUtils.MD5encode(newPassword));
+                userVo.setPassword(TaleUtils.md5Encode(newPassword));
                 fontUserService.updateByUid(userVo);
                 return RestResponseBo.ok();
             }
@@ -454,7 +457,7 @@ public class FontIndexController extends BaseController {
                     users = fontUserService.findUserByEmail(email);
                     String key = users.getUsername()+"$"+ users.getOutDate().getTime()/1000*1000 +"$"+secretKey;
                     //数字签名
-                    String digitalSignature = TaleUtils.MD5encode(key);
+                    String digitalSignature = TaleUtils.md5Encode(key);
                     //邮箱配置
                     String serverHost = "smtp.qq.com";
                     String serverPort = "465";
@@ -564,7 +567,7 @@ public class FontIndexController extends BaseController {
                     //获取当前登陆人的加密码
                     String key = stu.getUsername()+"$"+stu.getOutDate().getTime()/1000*1000+"$"+stu.getSecretKey();
                     //数字签名
-                    String digitalSignature = TaleUtils.MD5encode(key);
+                    String digitalSignature = TaleUtils.md5Encode(key);
                     if(!digitalSignature.equals(sid)){
                         System.out.println("链接加密密码不正确");
                         message="链接加密密码不正确";
@@ -595,7 +598,7 @@ public class FontIndexController extends BaseController {
     public  RestResponseBo  resetPassword(HttpServletRequest request,String username,String password,String confirmPassword){
         if(password.equals(confirmPassword)){
             FontUserVo userVo = fontUserService.findUserByName(username);
-            password = TaleUtils.MD5encode(password);
+            password = TaleUtils.md5Encode(password);
             userVo.setPassword(password);
             int i = fontUserService.updateByName(userVo);
             if(i!=0){
@@ -625,7 +628,7 @@ public class FontIndexController extends BaseController {
     public String articlePreview(HttpServletRequest request, @PathVariable("cid") String cid) {
         ContentVo contents = contentService.getContents(cid);
         if (null == contents) {
-            return render_404();
+            return renderTo404();
         }
         request.setAttribute("article", contents);
         request.setAttribute("is_post", true);
@@ -642,7 +645,7 @@ public class FontIndexController extends BaseController {
     public String page(@PathVariable("pagename") String pagename, HttpServletRequest request) {
         ContentVo contents = contentService.getContents(pagename);
         if (null == contents) {
-            return render_404();
+            return renderTo404();
         }
         if (contents.getAllowComment()) {
             String cp = request.getParameter("cp");
@@ -692,7 +695,7 @@ public class FontIndexController extends BaseController {
      */
     @RequestMapping(value = "/post", method = RequestMethod.GET)
     @ApiOperation(value = "查看博客列表页", notes = "查看博客列表页", httpMethod = "GET")
-    public String PostList(HttpServletRequest request, @RequestParam(value = "limit", defaultValue = "12") int limit,Integer mid){
+    public String postList(HttpServletRequest request, @RequestParam(value = "limit", defaultValue = "12") int limit,Integer mid){
         return this.pPostList(request,1,limit,mid);
     }
 
@@ -702,7 +705,7 @@ public class FontIndexController extends BaseController {
      */
     @RequestMapping(value = "/postsearch", method = RequestMethod.GET)
     @ApiOperation(value = "查看文章搜索结果页", notes = "查看文章搜索结果页", httpMethod = "GET")
-    public String PostSearch(HttpServletRequest request,@RequestParam(value = "limit", defaultValue = "12") int limit,ArticleSearchForm form){
+    public String postSearch(HttpServletRequest request,@RequestParam(value = "limit", defaultValue = "12") int limit,ArticleSearchForm form){
         return this.pPostSearch(request,1,limit,form);
     }
 
@@ -745,14 +748,14 @@ public class FontIndexController extends BaseController {
     public RestResponseBo comment(HttpServletRequest request, HttpServletResponse response,
                                   @RequestParam("cid") Integer cid, @RequestParam("coid") Integer coid,
                                   @RequestParam("author") String author, @RequestParam("mail") String mail,
-                                  @RequestParam("url") String url, @RequestParam("text") String text, @RequestParam("_csrf_token") String _csrf_token) {
+                                  @RequestParam("url") String url, @RequestParam("text") String text, @RequestParam("csrfToken") String csrfToken) {
 
         String ref = request.getHeader("Referer");
-        if (StringUtils.isBlank(ref) || StringUtils.isBlank(_csrf_token)) {
+        if (StringUtils.isBlank(ref) || StringUtils.isBlank(csrfToken)) {
             return RestResponseBo.fail(ErrorCode.BAD_REQUEST);
         }
 
-        String token = cache.hget(Types.CSRF_TOKEN.getType(), _csrf_token);
+        String token = cache.hget(Types.CSRF_TOKEN.getType(), csrfToken);
         if (StringUtils.isBlank(token)) {
             return RestResponseBo.fail(ErrorCode.BAD_REQUEST);
         }
@@ -913,14 +916,14 @@ public class FontIndexController extends BaseController {
         List<String> errorFiles = new ArrayList<>();
         FontUserVo users = this.fontUser(request);
         Integer uid = users.getUid();
-        CLASSPATH = request.getSession().getServletContext().getRealPath("upload");
+        classPath = request.getSession().getServletContext().getRealPath("upload");
         try{
             for (MultipartFile multipartFile : multipartFiles) {
                 String fname = multipartFile.getOriginalFilename();
                 if (multipartFile.getSize() <= WebConst.MAX_FILE_SIZE) {
                     String fkey = TaleUtils.getFileKey(fname);
                     String ftype = TaleUtils.isImage(multipartFile.getInputStream()) ? Types.IMAGE.getType() : Types.FILE.getType();
-                    File file = new File(CLASSPATH+fkey);
+                    File file = new File(classPath+fkey);
                     try {
                         FileCopyUtils.copy(multipartFile.getInputStream(),new FileOutputStream(file));
                     } catch (IOException e) {

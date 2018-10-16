@@ -44,7 +44,7 @@
                                     <div class="form-group">
                                         <label class="col-md-3 control-label">博客主题</label>
                                         <div class="col-md-9">
-                                            <select name="site_theme" class="form-control">
+                                            <select name="siteTheme" class="form-control">
                                                 <option value="default" th:selected="${options.site_theme=='default'}?true:false">默认主题</option>
                                             </select>
                                         </div>
@@ -202,8 +202,8 @@
      */
     function backup(type) {
         var param = {
-            bk_type: type,
-            bk_path: $('#backup_dir').val()
+            bkType: type,
+            bkPath: $('#backup_dir').val()
         };
         tale.post({
             url : '/myBlog/admin/setting/backup',

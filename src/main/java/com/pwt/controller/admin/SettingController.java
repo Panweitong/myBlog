@@ -68,7 +68,7 @@ public class SettingController extends BaseController {
     @ResponseBody
     @Transactional(rollbackFor = TipException.class)
     @ApiOperation(value = "保存系统设置", notes = "保存系统设置", httpMethod = "POST")
-    public RestResponseBo saveSetting(@RequestParam(required = false) String site_theme, HttpServletRequest request) {
+    public RestResponseBo saveSetting(@RequestParam(required = false) String siteTheme, HttpServletRequest request) {
         try {
             Map<String, String[]> parameterMap = request.getParameterMap();
             Map<String, String> querys = new HashMap<>();
@@ -80,8 +80,8 @@ public class SettingController extends BaseController {
 
             WebConst.initConfig = querys;
 
-            if (StringUtils.isNotBlank(site_theme)) {
-                BaseController.THEME = "themes/" + site_theme;
+            if (StringUtils.isNotBlank(siteTheme)) {
+                BaseController.THEME = "themes/" + siteTheme;
             }
             logService.insertLog(LogActions.SYS_SETTING.getAction(), GsonUtils.toJsonString(querys), request.getRemoteAddr(), this.getUid(request));
             return RestResponseBo.ok();
@@ -106,14 +106,14 @@ public class SettingController extends BaseController {
     @ResponseBody
     @Transactional(rollbackFor = TipException.class)
     @ApiOperation(value = "系统备份", notes = "系统备份", httpMethod = "POST")
-    public RestResponseBo backup(@RequestParam String bk_type, @RequestParam String bk_path,
+    public RestResponseBo backup(@RequestParam String bkType, @RequestParam String bkPath,
                                  HttpServletRequest request) {
-        if (StringUtils.isBlank(bk_type)) {
+        if (StringUtils.isBlank(bkType)) {
             return RestResponseBo.fail("请确认信息输入完整");
         }
         try {
-            String CLASSPATH = request.getSession().getServletContext().getRealPath("upload");
-            BackResponseBo backResponse = siteService.backup(bk_type, bk_path, "yyyyMMddHHmm",CLASSPATH);
+            String classPath = request.getSession().getServletContext().getRealPath("upload");
+            BackResponseBo backResponse = siteService.backup(bkType, bkPath, "yyyyMMddHHmm",classPath);
             logService.insertLog(LogActions.SYS_BACKUP.getAction(), null, request.getRemoteAddr(), this.getUid(request));
             return RestResponseBo.ok(backResponse);
         } catch (Exception e) {
@@ -157,8 +157,8 @@ public class SettingController extends BaseController {
     @ApiOperation(value = "查看附件或者下载附件", notes = "查看附件或者下载附件", httpMethod = "GET")
     public void  showPic(HttpServletRequest request, HttpServletResponse response, @PathVariable("fileName") String fileName){
         try {
-            String CLASSPATH = request.getSession().getServletContext().getRealPath("upload");
-            String name =  CLASSPATH +'/' +fileName+".zip";
+            String classPath = request.getSession().getServletContext().getRealPath("upload");
+            String name =  classPath +'/' +fileName+".zip";
             //获取输入流
             InputStream bis = new BufferedInputStream(new FileInputStream(new File(name)));
             //假如以中文名下载的话

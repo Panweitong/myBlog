@@ -3,7 +3,9 @@ package com.pwt.model.Bo;
 import java.io.Serializable;
 
 /**
- * Created by pwt on 2017/2/25.
+ *
+ * @author pwt
+ * @date 2017/2/25
  */
 @SuppressWarnings({"ALL", "AlibabaClassMustHaveAuthor"})
 public class BackResponseBo implements Serializable {

@@ -16,9 +16,15 @@ import sun.misc.BASE64Decoder;
  * @author libo
  */
 public class AesUtil {
-    //密钥 (需要前端和后端保持一致)
+
+    /**
+     *  密钥 (需要前端和后端保持一致)
+     */
     private static final String KEY = "abcdefgabcdefg12";
-    //算法
+
+    /**
+     * 算法
+     */
     private static final String ALGORITHMSTR = "AES/ECB/PKCS5Padding";
 
     /**
@@ -58,7 +64,8 @@ public class AesUtil {
      * @return 转换后的字符串
      */
     public static String binary(byte[] bytes, int radix){
-        return new BigInteger(1, bytes).toString(radix);// 这里的1代表正数
+        /* 这里的1代表正数 */
+        return new BigInteger(1, bytes).toString(radix);
     }
 
     /**

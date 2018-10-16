@@ -8,9 +8,9 @@ import com.google.gson.Gson;
  */
 public class GsonUtils {
 
-    private static final Gson gson = new Gson();
+    private static final Gson GSON = new Gson();
 
     public static String toJsonString(Object object){
-      return object==null?null:gson.toJson(object);
+      return object==null?null:GSON.toJson(object);
     }
 }

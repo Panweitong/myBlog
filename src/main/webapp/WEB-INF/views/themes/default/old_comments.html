@@ -8,7 +8,7 @@
         <form method="post" id="comment-form" class="comment-form" role="form" onsubmit="return comment_reply();">
             <input type="hidden" name="coid"/>
             <input type="hidden" name="cid" value="${article.cid}"/>
-            <input type="hidden" name="_csrf_token" value="">
+            <input type="hidden" name="csrfToken" value="">
             <input type="text" name="author" maxlength="12" id="author" class="form-control input-control clearfix"
                    placeholder="姓名 (*)" value="${login_user.username ?! ''}" required/>
             <input type="email" name="mail" id="mail" class="form-control input-control clearfix" placeholder="邮箱 (*)"
@@ -23,7 +23,7 @@
         <span class="response">评论已关闭.</span>
         #end
 
-        #if(!is_empty(comments))
+        #if(!isPageEmpty(comments))
         <ol class="comment-list">
             #for(comment : comments.list)
             <li id="li-comment-${comment.coid}" class="comment-body comment-parent comment-odd">

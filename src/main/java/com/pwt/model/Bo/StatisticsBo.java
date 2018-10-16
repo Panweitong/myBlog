@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * 后台统计对象
+ * @author ASUS
  */
 public class StatisticsBo implements Serializable {
 

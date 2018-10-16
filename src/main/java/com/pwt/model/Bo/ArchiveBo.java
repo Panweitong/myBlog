@@ -8,7 +8,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by pwt on 2017/2/23.
+ *
+ * @author pwt
+ * @date 2017/2/23
  */
 public class ArchiveBo implements Serializable {
 
