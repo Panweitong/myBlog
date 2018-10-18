@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.random(4, '.jpg')}" th:style="'background:url(/myBlog/static/admin/images/bg/'+@{${pic}}+');no-repeat; background-size: cover;'">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.random(4, '.jpg')}" th:style="'background:url(/static/admin/images/bg/'+@{${pic}}+');no-repeat; background-size: cover;'">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -49,7 +49,7 @@
     </style>
 
 </head>
-<body th:style="'background:url(/myBlog/static/admin/images/bg/'+@{${pic}}+');no-repeat; background-size: cover;'" >
+<body th:style="'background:url(/static/admin/images/bg/'+@{${pic}}+');no-repeat; background-size: cover;'" >
 <div style="margin: 0 auto; padding-bottom: 0%; padding-top: 7.5%; width: 380px;">
     <div class="panel panel-color panel-danger panel-pages panel-shadow">
         <div class="panel-heading bg-img">
@@ -98,11 +98,11 @@
     var tale = new $.tale();
     function checkForm() {
         tale.post({
-            url: '/myBlog/admin/login',
+            url: '/admin/login',
             data: $("#loginForm").serialize(),
             success: function (result) {
                 if (result && result.success) {
-                    window.location.href = '/myBlog/admin/index';
+                    window.location.href = '/admin/index';
                 } else {
                     tale.alertError(result.msg || '登录失败');
                 }

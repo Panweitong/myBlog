@@ -155,7 +155,7 @@
 
     $("#dropzone").dropzone({
         paramName: "file",
-        url: "/myBlog/upload",
+        url: "/upload",
         maxFilesize: 1,
         acceptedFiles:".jpg,.jpeg,.png,.gif",
         init: function () {
@@ -248,7 +248,7 @@
     var tale = new $.tale();
     function checkForm() {
         tale.post({
-            url: '/myBlog/profile',
+            url: '/profile',
             data: $("#sigUpForm").serialize(),
             success: function (result) {
                 if (result && result.success) {
@@ -264,12 +264,12 @@
 
     function checkPassForm() {
         tale.post({
-            url: '/myBlog/changePass',
+            url: '/changePass',
             data: $("#changePass").serialize(),
             success: function (result) {
                 if (result && result.success) {
                     alert(result.msg || '修改成功');
-                    window.location.href = '/myBlog/logout';
+                    window.location.href = '/logout';
                 } else {
                     alert(result.msg || '修改失败');
                 }

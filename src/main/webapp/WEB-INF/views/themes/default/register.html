@@ -81,12 +81,12 @@
     var tale = new $.tale();
     function checkForm() {
         tale.post({
-            url: '/myBlog/register',
+            url: '/register',
             data: $("#UserRegisterForm").serialize(),
             success: function (result) {
                 if (result && result.success) {
                     alert(result.msg||'注册成功');
-                    window.location.href = '/myBlog/index';
+                    window.location.href = '/index';
                 } else {
                     tale.alertError(result.msg || '注册失败');
                 }

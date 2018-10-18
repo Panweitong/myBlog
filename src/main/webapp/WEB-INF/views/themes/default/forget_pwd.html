@@ -112,7 +112,7 @@
 <script th:src="@{/static/admin/js/base.js}"></script>
 <script type="text/javascript">
     function refreshcode(){
-        document.getElementById("code").src="/myBlog/codeMaker?a="+Math.random()+100;
+        document.getElementById("code").src="/codeMaker?a="+Math.random()+100;
         return true;
     }
 </script>
@@ -122,12 +122,12 @@
     function checkForm() {
         var form=$("#resetPasswordForm");
         tale.post({
-            url: '/myBlog/forget',
+            url: '/forget',
             data: form.serialize(),
             success: function (result) {
                 if (result && result.success) {
                     alert(result.msg||'操作成功,已经发送找回密码链接到您邮箱。请在30分钟内重置密码!');
-                    window.location.href = '/myBlog/forget';
+                    window.location.href = '/forget';
                 } else {
                     alert(result.msg || '登录失败');
                 }

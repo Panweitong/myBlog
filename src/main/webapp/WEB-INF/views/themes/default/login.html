@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.random(4, '.jpg')}" th:style="'background:url(/myBlog/static/admin/images/bg/'+@{${pic}}+');no-repeat; background-size: cover;'">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="pic=${commons.random(4, '.jpg')}" th:style="'background:url(/static/admin/images/bg/'+@{${pic}}+');no-repeat; background-size: cover;'">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
@@ -32,7 +32,7 @@
             top: 0;
             width: 100%;
         }
-        .bg-img{background:url(/myBlog/static/admin/images/small/bg1.jpg) center}
+        .bg-img{background:url(/static/admin/images/small/bg1.jpg) center}
         .input-border {
             font-size: 14px;
             width: 100%;
@@ -49,7 +49,7 @@
     </style>
 
 </head>
-<body th:style="'background:url(/myBlog/static/admin/images/bg/'+@{${pic}}+');no-repeat; background-size: cover;'" >
+<body th:style="'background:url(/static/admin/images/bg/'+@{${pic}}+');no-repeat; background-size: cover;'" >
 <div style="margin: 0 auto; padding-bottom: 0%; padding-top: 7.5%; width: 380px;">
     <div class="panel panel-color panel-danger panel-pages panel-shadow">
         <div class="panel-heading bg-img">
@@ -118,11 +118,11 @@
     function checkForm() {
         var form=$("#loginForm");
         tale.post({
-            url: '/myBlog/login',
+            url: '/login',
             data: form.serialize(),
             success: function (result) {
                 if (result && result.success) {
-                    window.location.href = '/myBlog/index';
+                    window.location.href = '/index';
                 } else {
                     tale.alertError(result.msg || '登录失败');
                 }

@@ -58,12 +58,12 @@ public class BaseInterceptor implements HandlerInterceptor {
             }
         }
 
-        if (uri.startsWith("/myBlog/admin") && !uri.startsWith("/myBlog/admin/login") && user == null) {
+        if (uri.startsWith("/admin") && !uri.startsWith("/admin/login") && user == null) {
             response.sendRedirect(request.getContextPath() + "/admin/login");
             return false;
         }
 
-        else if(uri.startsWith("/myBlog/api")&& user == null){
+        else if(uri.startsWith("/api") && user == null){
             response.sendRedirect(request.getContextPath() + "/admin/login");
             return false;
         }

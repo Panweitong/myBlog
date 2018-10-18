@@ -350,7 +350,7 @@ public class TaleUtils {
         response.addCookie(cookie);
         try {
 //            response.sendRedirect(Commons.site_url());
-            response.sendRedirect("/myBlog");
+            response.sendRedirect("/");
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
         }

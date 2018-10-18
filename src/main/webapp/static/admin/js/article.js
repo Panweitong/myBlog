@@ -41,7 +41,7 @@ function subArticle(status) {
     $("#articleForm #status").val(status);
     $("#articleForm #categories").val($('#multiple-sel').val());
     var params = $("#articleForm").serialize();
-    var url = $('#articleForm #cid').val() != '' ? '/myBlog/admin/article/modify' : '/myBlog/admin/article/publish';
+    var url = $('#articleForm #cid').val() != '' ? '/admin/article/modify' : '/admin/article/publish';
     tale.post({
         url:url,
         data:params,
@@ -51,7 +51,7 @@ function subArticle(status) {
                     text:'文章保存成功',
                     then: function () {
                         setTimeout(function () {
-                            window.location.href = '/myBlog/admin/article';
+                            window.location.href = '/admin/article';
                         }, 500);
                     }
                 });
@@ -76,7 +76,7 @@ $(function() {
         width   : "100%",
         height  : 640,
         // syncScrolling : "single",
-        path    : "/myBlog/static/markdown/lib/"
+        path    : "/static/markdown/lib/"
     });
 
     testEditor.setToolbarAutoFixed(true);

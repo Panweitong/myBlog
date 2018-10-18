@@ -114,12 +114,12 @@
     function checkForm() {
         var form=$("#resetPasswordForm");
         tale.post({
-            url: '/myBlog/resetPwd',
+            url: '/resetPwd',
             data: form.serialize(),
             success: function (result) {
                 if (result && result.success) {
                     alert(result.msg||'操作成功,请返回登录页登录');
-                    window.location.href = '/myBlog/login';
+                    window.location.href = '/login';
                 } else {
                     alert(result.msg || '登录失败');
                 }

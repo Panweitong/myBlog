@@ -86,7 +86,7 @@
             $('#content-editor').val($('#ts').val());
             $("#articleForm #categories").val($('#multiple-sel').val());
             var params = $("#articleForm").serialize();
-            var url = $('#articleForm #cid').val() != '' ? '/myBlog/admin/page/modify' : '/myBlog/admin/page/publish';
+            var url = $('#articleForm #cid').val() != '' ? '/admin/page/modify' : '/admin/page/publish';
 
             tale.post({
                 url:url,
@@ -97,7 +97,7 @@
                             text:'页面保存成功',
                             then: function () {
                                 setTimeout(function () {
-                                    window.location.href = '/myBlog/admin/page';
+                                    window.location.href = '/admin/page';
                                 }, 500);
                             }
                         });
@@ -119,7 +119,7 @@
             width   : "100%",
             height  : 640,
             // syncScrolling : "single",
-            path    : "/myBlog/static/markdown/lib/"
+            path    : "/static/markdown/lib/"
         });
 
         testEditor.setToolbarAutoFixed(true);

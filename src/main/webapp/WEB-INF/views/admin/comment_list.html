@@ -77,7 +77,7 @@
             title: '确定删除该评论吗?',
             then: function () {
                 tale.post({
-                    url: '/myBlog/admin/comments/delete',
+                    url: '/admin/comments/delete',
                     data: {coid: coid,_method:"DELETE"},
                     success: function (result) {
                         if (result && result.success) {
@@ -94,7 +94,7 @@
     function updateStatus(coid) {
         var status="approved";
         tale.post({
-            url: '/myBlog/admin/comments/status',
+            url: '/admin/comments/status',
             data: {coid: coid, status: status,_method:"PUT"},
             success: function (result) {
                 if (result && result.success) {

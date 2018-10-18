@@ -104,7 +104,7 @@
         var mid = $('#cform #mid').val();
         if (cname && cname != '') {
             tale.post({
-                url: '/myBlog/admin/category/save',
+                url: '/admin/category/save',
                 data: {mid: mid, cname: cname,_method:"PUT"},
                 success: function (result) {
                     $('#cform #mid').val('');
@@ -132,7 +132,7 @@
             title: '确定删除该项吗?',
             then: function () {
                 tale.post({
-                    url: '/myBlog/admin/category/delete',
+                    url: '/admin/category/delete',
                     data: {mid: mid,_method:"DELETE"},
                     success: function (result) {
                         if (result && result.success) {

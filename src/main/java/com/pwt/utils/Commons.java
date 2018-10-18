@@ -71,7 +71,7 @@ public final class Commons {
      * @return
      */
     public static String siteLogin() {
-        return "/myBlog/admin/login";
+        return "/admin/login";
     }
 
     /**
@@ -200,7 +200,7 @@ public final class Commons {
      * @return
      */
     public static String permalink(Integer cid, String slug) {
-        return siteUrl("/myBlog/article/" + (StringUtils.isNotBlank(slug) ? slug : cid.toString()));
+        return siteUrl("/article/" + (StringUtils.isNotBlank(slug) ? slug : cid.toString()));
     }
 
     /**
@@ -238,7 +238,7 @@ public final class Commons {
             String[] arr = categories.split(",");
             StringBuffer sbuf = new StringBuffer();
             for (String c : arr) {
-                sbuf.append("<a href=\"/myBlog/category/" + URLEncoder.encode(c, "UTF-8") + "\">" + c + "</a>");
+                sbuf.append("<a href=\"/category/" + URLEncoder.encode(c, "UTF-8") + "\">" + c + "</a>");
             }
             return sbuf.toString();
         }
@@ -256,7 +256,7 @@ public final class Commons {
             String[] arr = tags.split(",");
             StringBuffer sbuf = new StringBuffer();
             for (String c : arr) {
-                sbuf.append("<a style='text-align:left;' href=\"/myBlog/tag/" + URLEncoder.encode(c, "UTF-8") + "\">" + c + "</a>");
+                sbuf.append("<a style='text-align:left;' href=\"/tag/" + URLEncoder.encode(c, "UTF-8") + "\">" + c + "</a>");
             }
             return sbuf.toString();
         }
