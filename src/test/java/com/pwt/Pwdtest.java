@@ -11,7 +11,7 @@ public class Pwdtest {
         UserVo user = new UserVo();
         user.setUsername("admin");
         user.setPassword("asdfasdfs");
-        String encodePwd = TaleUtils.MD5encode(user.getUsername() + user.getPassword());
+        String encodePwd = TaleUtils.md5Encode(user.getUsername() + user.getPassword());
         System.out.println(encodePwd);
     }
 }
