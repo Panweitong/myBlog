@@ -71,4 +71,27 @@
 </div>
 </body>
 <div th:replace="themes/default/footer::footer"></div>
+<script type="text/javascript">
+    function IsPC() {
+        var userAgentInfo = navigator.userAgent;
+        var Agents = ["Android", "iPhone",
+            "SymbianOS", "Windows Phone",
+            "iPad", "iPod"];
+        var flag = true;
+        for (var v = 0; v < Agents.length; v++) {
+            if (userAgentInfo.indexOf(Agents[v]) > 0) {
+                flag = false;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    $(function(){
+        var flag = IsPC(); //true为PC端，false为移动端
+        if(!flag){
+            window.location.href = "http://localhost:8080/mobile/";
+        }
+    });
+</script>
 </html>
