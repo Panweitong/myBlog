@@ -357,6 +357,26 @@ public class TaleUtils {
     }
 
     /**
+     * 退出登录状态
+     *
+     * @param session
+     * @param response
+     */
+    public static void mobileLogout(HttpSession session, HttpServletResponse response) {
+        session.removeAttribute(WebConst.FONTLOGIN_SESSION_KEY);
+        Cookie cookie = new Cookie(WebConst.USER_IN_COOKIE, "");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        try {
+//            response.sendRedirect(Commons.site_url());
+            response.sendRedirect("/mobile/index");
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+    }
+
+
+    /**
      * 替换HTML脚本
      *
      * @param value

@@ -22,16 +22,27 @@ public class BaseController {
 
     public static String THEME = "themes/default";
 
+    public static String MOBILE_THEME = "mobile/default";
+
     @Autowired
     private IOptionService optionService;
 
     /**
-     * 主页的页面主题
+     * PC 端的页面主题
      * @param viewName
      * @return
      */
     public static String render(String viewName) {
         return THEME + "/" + viewName;
+    }
+
+    /**
+     * 移动端的页面主题
+     * @param viewName
+     * @return
+     */
+    public static String mobileRender(String viewName) {
+        return MOBILE_THEME + "/" + viewName;
     }
 
     public BaseController title(HttpServletRequest request, String title) {

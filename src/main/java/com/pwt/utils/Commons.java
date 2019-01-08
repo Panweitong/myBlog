@@ -264,6 +264,24 @@ public final class Commons {
     }
 
     /**
+     * 显示标签
+     *
+     * @param tags
+     * @return
+     */
+    public static String showMobileTags(String tags) throws UnsupportedEncodingException {
+        if (StringUtils.isNotBlank(tags)) {
+            String[] arr = tags.split(",");
+            StringBuffer sbuf = new StringBuffer();
+            for (String c : arr) {
+                sbuf.append("<a style='text-align:left;' href=\"/mobile/tag/" + URLEncoder.encode(c, "UTF-8") + "\">" + c + "</a>");
+            }
+            return sbuf.toString();
+        }
+        return "";
+    }
+
+    /**
      * 截取文章摘要
      *
      * @param value 文章内容
