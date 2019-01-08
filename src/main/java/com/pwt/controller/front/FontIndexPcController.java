@@ -48,8 +48,8 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/")
-public class FontIndexController extends BaseController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(FontIndexController.class);
+public class FontIndexPcController extends BaseController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FontIndexPcController.class);
 
     @Autowired
     private IContentService contentService;
