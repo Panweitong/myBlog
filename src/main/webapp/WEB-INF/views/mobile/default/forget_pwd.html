@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="mobile/default/header::header(null,null)"></div>
+<head>
+    <script src="//cdn.bootcss.com/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="//cdn.bootcss.com/es5-shim/4.5.9/es5-sham.min.js"></script>
+    <style type="text/css">
+        .m-ppc-box .upper{
+            line-height:42px !important;
+        }
+        .u-ipt .ipt_input, .u-ipt .ipt_input_large{
+            line-height:42px !important;
+        }
+    </style>
+    <script type="text/javascript">
+        var _userAgent = navigator.userAgent.toLowerCase(),
+            _msie = /msie/.test(_userAgent) && !/opera/.test(_userAgent),
+            _version = (_userAgent.match(/.+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [0,'0'])[1],
+            _test = {6:'2.0',7:'3.0',8:'4.0',9:'5.0',10:'6.0',11:'7.0'},
+            _release = _test[document.documentMode]||_test[parseInt(_version)];
+        if (_msie && parseInt(_release,10)<4){
+            location.href = "https://ursdoccdn.nosdn.127.net/reg/ieUpdate02.html";
+        }
+    </script>
+    <link href="http://reg.163.com/naq/findPassword/pub/css/index.a158372d027532a0229059e3bf96bf05.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <div id="slideIndicators" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="">
+        <ol class="carousel-indicators">
+            <li data-target="#slideIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#slideIndicators" data-slide-to="1"></li>
+            <li data-target="#slideIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active"
+                 style="height: 50vh;min-height: 20px;background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063491041&di=8767c9c3177b01c45db9cc3854b78e0f&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F033edd5554c7e6d00000158fc7b2956.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">优秀的判断力来自经验，但经验来自错误的判断</h3>
+                    <p class="txt_shadow">Good judgment comes from experience, but experience comes from bad judgment.</p>
+                </div>
+            </div>
+            <!-- Slide Two - Set the background image for this slide in the line below -->
+            <div class="carousel-item"
+                 style="height: 50vh;min-height: 20px;background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063190806&di=71bdda130cdedcd895e5a3d476a89081&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fitbbs%2F1309%2F16%2Fc18%2F25748320_1379313651110.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">我不是一个伟大的程序员，我只是一个具有良好习惯的优秀程序员</h3>
+                    <p class="txt_shadow">I am not a great programmer, I am just a good programmer with good habits. </p>
+                </div>
+            </div>
+            <!-- Slide Three - Set the background image for this slide in the line below -->
+            <div class="carousel-item"
+                 style="height: 50vh;min-height: 20px;background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063331413&di=de07b2eb50799360c9bf5c378da23bbf&imgtype=0&src=http%3A%2F%2Fpic.99wed.com%2Fattachment%2FMon_1107%2F98_736564_b419d830ab0564c.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">你们中大多数人都熟悉程序员的美德，有三种：那就是懒惰、急躁和傲慢</h3>
+                    <p class="txt_shadow">Most of you are familiar with the programmer's virtues, and there are three: laziness,
+                        impatience, and arrogance. </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+<div class="main-content index-page clearfix"  style="flex: 1 0 auto;">
+    <!--<editor-fold desc="Description">-->
+    <div id="app" class="g-bd f-cf" style="width:900px;margin: 45px auto 89px;min-height: 520px;">
+        <div class="u-op">
+            <!--Regular if15--><!--Regular if1-->
+            <div class="m-title" style="width:900px;padding: 0 0 85px 0;">
+                <label style="margin-top: 20px;">输入帐号</label>
+            </div>
+            <div class="m-op-box" style="width: 900px;">
+                <form class="form-horizontal" role="form" method="POST" id="resetPasswordForm" onsubmit="return checkForm()">
+                <div class="m-vfAccount m-center">
+                    <div class="u-tip">请输入要重置密码的邮箱帐号</div>
+                    <div class="w-ipt">
+                        <div class="m-suggest" style="z-index: 89;">
+                            <div class="u-ipt">
+                                <div class="ipt_wrap">
+                                    <input type="text" spellcheck="false" id="email" name="email" placeholder="邮箱帐号"
+                                           class="ipt_input ipt_input_large ipt_input-success" autocomplete="off">
+                                </div>
+                                <div class="ipt_wrap" style="margin: 20px 0 0 0">
+                                    <div class="row">
+                                        <div class="col-md-7">
+                                            <input type="text" spellcheck="false" id="code1" name="code" placeholder="验证码"
+                                                   class="ipt_input ipt_input_large ipt_input-success" autocomplete="off" style="width:190px">
+                                        </div>
+                                        <div class="col-md-5">
+                                            <img id="code" th:src="@{/mobile/codeMaker}" title="看不清点击刷新验证码" style="cursor : pointer;"  onclick="return refreshcode()"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Regular if9-->
+                    <div class="w-btn" style="margin-top:60px;">
+                        <div class="u-btn ">
+                            <button class="" type="submit">提交</button>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--</editor-fold>-->
+</div>
+<script th:src="@{//cdn.bootcss.com/limonte-sweetalert2/6.4.1/sweetalert2.min.js}"></script>
+<script th:src="@{/static/admin/js/base.js}"></script>
+<script type="text/javascript">
+    function refreshcode(){
+        document.getElementById("code").src="/mobile/codeMaker?a="+Math.random()+100;
+        return true;
+    }
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var tale = new $.tale();
+    function checkForm() {
+        var form=$("#resetPasswordForm");
+        tale.post({
+            url: '/mobile/forget',
+            data: form.serialize(),
+            success: function (result) {
+                if (result && result.success) {
+                    alert(result.msg||'操作成功,已经发送找回密码链接到您邮箱。请在30分钟内重置密码!');
+                    window.location.href = '/forget';
+                } else {
+                    alert(result.msg || '登录失败');
+                }
+            }
+        });
+        return false;
+    }
+    /*]]>*/
+</script>
+</body>
+<div th:replace="mobile/default/footer::footer"></div>
+</html>

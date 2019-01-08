@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="header(title,keywords)" style="height: 100%;width: 1125px;">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+    <meta name="renderer" content="webkit"/>
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>-->
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="keywords" th:content="${keywords ?: commons.siteOption('site_keywords')}"/>
+    <meta name="description" th:content="${description ?:commons.siteOption('site_description')}"/>
+    <link rel="shortcut icon" th:href="@{/static/user/img/favicon.ico}"/>
+    <link rel="apple-touch-icon" th:href="@{/static/user/img/apple-touch-icon.png}"/>
+    <title><th:block th:text="${title ?: '首页'}+' - '+${commons.siteOption('site_title','My Blog')}"></th:block></title>
+    <link th:href="@{//cdn.bootcss.com/highlight.js/9.9.0/styles/xcode.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/user/css/style.min.css}" rel="stylesheet"/>
+    <link th:href="@{/static/user/css/footer.css}" rel="stylesheet"/>
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/static/user/css/full-slider/full-slider.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/static/user/css/public.css}">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <link th:href="@{//netdna.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css}" rel="stylesheet">
+
+
+    <!-- landing-page -->
+    <link rel="stylesheet" th:href="@{/static/user/css/landing-page/landing-page.min.css}">
+
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <!-- Bootstrap-Core JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap-Bundle JS-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.bundle.min.js" integrity="sha384-3ziFidFTgxJXHMDttyPJKDuTlmxJlwbSkojudK/CkRqKDOmeSbN6KLrGdrBQnT2n" crossorigin="anonymous"></script>
+
+    <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+     <style>
+         body{
+             font-family: "Microsoft YaHei", "微软雅黑", Helvetica, Tahoma, STXihei, "华文细黑", STHeiti, "Helvetica Neue", Helvetica, Tahoma, "Droid Sans", "wenquanyi micro hei", FreeSans, Arimo, Arial, SimSun, "宋体", Heiti, "黑体", sans-serif;
+         }
+     </style>
+</head>
+<body  gtools_scp_screen_capture_injected="true" th:class="${is_post}?'':'bg-grey'" style="display: flex;flex-direction: column;height: 100%;">
+<!--[if lt IE 8]>
+<div class="browsehappy" role="dialog">
+    当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/" target="_blank">升级你的浏览器</a>。
+</div>
+<![endif]-->
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top"  style="font-size: 15px;">
+    <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarResponsive" style="display: block">
+            <!-- Logo 位置 -->
+            <img class="mr-3" alt="Logo"
+                 th:src="@{/static/user/img/logo.png}" style="max-width: 30px;float: left;margin-top: 5px;">
+            <a class="navbar-brand" href="#" style="width: 40.08px;font-size: 20px;float: left">
+                <b>Blog</b>
+            </a>
+            <!-- s 左侧导航 -->
+            <ul class="nav navbar-nav" style="float: left;flex-direction: row;">
+                <li class="nav-item no-active" style="margin-right: 15px;">
+                    <a class="nav-link"><!-- 占位 --></a>
+                </li>
+                <li class="nav-item active" id="index" style="margin-right: 15px;">
+                    <a class="nav-link" th:href="'/mobile'+${commons.siteUrl('/index')}">首页</a>
+                </li>
+                <li class="nav-item no-active" style="margin-right: 15px;">
+                    <a class="nav-link" th:href="'/mobile'+${commons.siteUrl('/archives')}">归档</a>
+                </li>
+                <li class="nav-item no-active" style="margin-right: 15px;">
+                    <a class="nav-link" th:href="'/mobile'+${commons.siteUrl('/post')}">博客</a>
+                </li>
+                <!--<li class="nav-item no-active">-->
+                    <!--<a class="nav-link" th:href="${commons.siteUrl('/about')}">关于</a>-->
+                <!--</li>-->
+                <li class="nav-item no-active" style="margin-right: 15px;">
+                    <a class="nav-link" th:href="'/mobile'+${commons.siteUrl('/paper')}">简历</a>
+                </li>
+                <li class="nav-item no-active" style="margin-right: 15px;">
+                    <a class="nav-link" href="#"></a>
+                </li>
+            </ul>
+            <!-- e 左侧导航 -->
+            <!-- s 右侧导航 -->
+            <ul class="nav navbar-nav ml-auto" style="float: right;flex-direction: row;">
+                <th:block th:if="${session.login_fontUser}!=null">
+                <li class="nav-item"  style="margin-right: 15px;">
+                    <!-- 用户头像位置 -->
+                    <img class="img-circle"
+                         src="/img/logo.png"
+                         th:src="@{${session.login_fontUser.headPhoto}}"
+                         alt="头像"
+                         style="max-width: 30px;border-radius:20px"/>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false" th:text="${session.login_fontUser.username}!=null?${session.login_fontUser.username}:'登录'"><span
+                            class="caret"></span></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#" th:href="@{/mobile/profile}" target="_blank">我的资料</a>
+                        <!--<a class="dropdown-item" href="#">消息</a>-->
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout" th:href="@{/mobile/logout}">注销登录</a>
+                    </div>
+                </li>
+                </th:block>
+                <th:block th:unless="${session.login_fontUser}!=null">
+                   <li class="nav-item" style="margin-right: 15px;">
+                       <a class="nav-link" th:href="@{/mobile/register}" onclick="location.reload()">注册</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" th:href="@{/mobile/login}" onclick="location.reload()">登录</a>
+                   </li>
+                </th:block>
+            </ul>
+            <!-- e 右侧导航 -->
+        </div>
+    </div>
+</nav>
+
+<script>
+    $(window).scroll(function () {
+        if ($(".navbar").offset().top > 50) {$(".navbar-fixed-top").addClass("top-nav");
+        }else {$(".navbar-fixed-top").removeClass("top-nav");}
+    })
+
+    $(function () {
+        $(".navbar-nav").find("li").each(function () {
+            var a = $(this).find("a:first")[0];
+            if ($(a).attr("href") === location.pathname) {
+                $(this).removeClass("no-active");
+                $(this).addClass("active");
+            }
+            else {
+                if(location.pathname === "/"){
+
+                }
+                else{
+                    $(this).removeClass("active");
+                    $(this).addClass("no-active");
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

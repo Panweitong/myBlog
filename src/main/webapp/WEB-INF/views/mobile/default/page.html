@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="mobile/default/header::header(${article.title},null)"></div>
+<head>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/static/markdown/examples/css/style.css}" />
+    <link rel="stylesheet" href="../css/editormd.preview.css" th:href="@{/static/markdown/css/editormd.preview.css}"/>
+</head>
+<body>
+<style>
+    .editormd-html-preview {
+        width: 100%;
+        margin: 0 auto;
+    }
+</style>
+<header>
+    <div id="slideIndicators" class="carousel slide" data-ride="carousel" data-interval="3000" data-pause="">
+        <ol class="carousel-indicators">
+            <li data-target="#slideIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#slideIndicators" data-slide-to="1"></li>
+            <li data-target="#slideIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active"
+                 style="height: 50vh;min-height: 20px;background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063491041&di=8767c9c3177b01c45db9cc3854b78e0f&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F033edd5554c7e6d00000158fc7b2956.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">优秀的判断力来自经验，但经验来自错误的判断</h3>
+                    <p class="txt_shadow">Good judgment comes from experience, but experience comes from bad judgment.</p>
+                </div>
+            </div>
+            <!-- Slide Two - Set the background image for this slide in the line below -->
+            <div class="carousel-item"
+                 style="height: 50vh;min-height: 20px;background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063190806&di=71bdda130cdedcd895e5a3d476a89081&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fitbbs%2F1309%2F16%2Fc18%2F25748320_1379313651110.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">我不是一个伟大的程序员，我只是一个具有良好习惯的优秀程序员</h3>
+                    <p class="txt_shadow">I am not a great programmer, I am just a good programmer with good habits. </p>
+                </div>
+            </div>
+            <!-- Slide Three - Set the background image for this slide in the line below -->
+            <div class="carousel-item"
+                 style="height: 50vh;min-height: 20px;background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1515063331413&di=de07b2eb50799360c9bf5c378da23bbf&imgtype=0&src=http%3A%2F%2Fpic.99wed.com%2Fattachment%2FMon_1107%2F98_736564_b419d830ab0564c.jpg')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3 class="txt_shadow">你们中大多数人都熟悉程序员的美德，有三种：那就是懒惰、急躁和傲慢</h3>
+                    <p class="txt_shadow">Most of you are familiar with the programmer's virtues, and there are three: laziness,
+                        impatience, and arrogance. </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+<article class="main-content post-page" style="flex: 1 0 auto;max-width: 960px;min-height: 880px;">
+    <div class="post-header" style="text-align: left">
+        <h1 class="post-title" itemprop="name headline" th:text="${article.title}" ></h1>
+        <div class="post-data" style="text-align: left">
+            <time th:datetime="${commons.fmtdate(article.created)}" itemprop="datePublished"  th:text="'发布于 '+ ${commons.fmtdate(article.created)}"></time>
+        </div>
+    </div><br>
+    <div id="post-content" class="post-content" >
+        <div id="test-editormd-view2">
+                <textarea id="append-test" style="display:none;" th:utext="${article.content}">
+                </textarea>
+        </div>
+    </div>
+</article>
+<script th:src="@{/static/markdown/lib/marked.min.js}"></script>
+<script src="../lib/prettify.min.js" th:src="@{/static/markdown/lib/prettify.min.js}"></script>
+<script src="../lib/raphael.min.js" th:src="@{/static/markdown/lib/raphael.min.js}"></script>
+<script src="../lib/underscore.min.js" th:src="@{/static/markdown/lib/underscore.min.js}"></script>
+<script src="../lib/sequence-diagram.min.js" th:src="@{/static/markdown/lib/sequence-diagram.min.js}"></script>
+<script src="../lib/flowchart.min.js" th:src="@{/static/markdown/lib/flowchart.min.js}"></script>
+<script src="../lib/jquery.flowchart.min.js" th:src="@{/static/markdown/lib/jquery.flowchart.min.js}"></script>
+<script src="../js/editormd.js" th:src="@{/static/markdown/editormd.js}"></script>
+<script type="text/javascript">
+    var testEditormdView2;
+
+    $(function() {
+
+        testEditormdView2 = editormd.markdownToHTML("test-editormd-view2", {
+            htmlDecode      : "style,script,iframe",  // you can filter tags decode
+            emoji           : true,
+            taskList        : true,
+            tex             : true,  // 默认不解析
+            flowChart       : true,  // 默认不解析
+            sequenceDiagram : true,  // 默认不解析
+        });
+    });
+</script>
+<!--<div th:replace="themes/default/comments::comments"></div>-->
+<div th:replace="mobile/default/footer::footer"></div>
+</body>
+</html>
