@@ -41,7 +41,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 首页
+ * PC 端
  *
  * @author pwt
  * @date 2017/3/8 008
