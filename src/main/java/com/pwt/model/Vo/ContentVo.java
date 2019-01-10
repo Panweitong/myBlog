@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class ContentVo implements Serializable {
     /**
-     * post表主键
+     * content表主键
      */
     private Integer cid;
 
