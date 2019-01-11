@@ -1,6 +1,6 @@
 package com.pwt.dao;
-import com.pwt.model.Vo.FontUserVo;
-import com.pwt.model.Vo.FontUserVoExample;
+import com.pwt.model.vo.FontUserVo;
+import com.pwt.model.vo.FontUserVoExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

@@ -1,6 +1,6 @@
 package com.pwt.service;
 
-import com.pwt.model.Vo.RelationshipVoKey;
+import com.pwt.model.vo.RelationshipVoKey;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.pwt.dao;
 
-import com.pwt.model.Vo.AttachVo;
-import com.pwt.model.Vo.AttachVoExample;
+import com.pwt.model.vo.AttachVo;
+import com.pwt.model.vo.AttachVoExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

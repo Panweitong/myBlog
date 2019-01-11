@@ -1,7 +1,7 @@
 package com.pwt.service;
 
 
-import com.pwt.model.Vo.UserVo;
+import com.pwt.model.vo.UserVo;
 
 /**
  * Created by pwt on 2017/3/3.

@@ -1,6 +1,6 @@
 package com.pwt.service;
 
-import com.pwt.model.Vo.LogVo;
+import com.pwt.model.vo.LogVo;
 
 import java.util.List;
 

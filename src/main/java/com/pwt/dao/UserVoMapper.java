@@ -1,6 +1,6 @@
 package com.pwt.dao;
-import com.pwt.model.Vo.UserVo;
-import com.pwt.model.Vo.UserVoExample;
+import com.pwt.model.vo.UserVo;
+import com.pwt.model.vo.UserVoExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

@@ -2,8 +2,8 @@ package com.pwt.service.impl;
 
 import com.pwt.dao.UserVoMapper;
 import com.pwt.exception.TipException;
-import com.pwt.model.Vo.UserVo;
-import com.pwt.model.Vo.UserVoExample;
+import com.pwt.model.vo.UserVo;
+import com.pwt.model.vo.UserVoExample;
 import com.pwt.service.IUserService;
 import com.pwt.utils.TaleUtils;
 import org.apache.commons.lang3.StringUtils;

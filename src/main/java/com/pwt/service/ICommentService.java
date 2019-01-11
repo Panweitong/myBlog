@@ -1,9 +1,9 @@
 package com.pwt.service;
 
 import com.github.pagehelper.PageInfo;
-import com.pwt.model.Bo.CommentBo;
-import com.pwt.model.Vo.CommentVo;
-import com.pwt.model.Vo.CommentVoExample;
+import com.pwt.model.bo.CommentBo;
+import com.pwt.model.vo.CommentVo;
+import com.pwt.model.vo.CommentVoExample;
 
 /**
  * Created by pwt on 2017/3/16.

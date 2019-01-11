@@ -1,7 +1,7 @@
 package com.pwt.dao;
 
-import com.pwt.model.Vo.RelationshipVoExample;
-import com.pwt.model.Vo.RelationshipVoKey;
+import com.pwt.model.vo.RelationshipVoExample;
+import com.pwt.model.vo.RelationshipVoKey;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

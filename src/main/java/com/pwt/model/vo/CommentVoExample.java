@@ -1,8 +1,11 @@
-package com.pwt.model.Vo;
+package com.pwt.model.vo;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author pwt
+ */
 public class CommentVoExample {
     protected String orderByClause;
 

@@ -5,7 +5,7 @@ import com.pwt.controller.BaseController;
 import com.pwt.dto.MetaDto;
 import com.pwt.dto.Types;
 import com.pwt.exception.TipException;
-import com.pwt.model.Bo.RestResponseBo;
+import com.pwt.model.bo.RestResponseBo;
 import com.pwt.service.IMetaService;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

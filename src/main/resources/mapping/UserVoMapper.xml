@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pwt.dao.UserVoMapper">
   <cache type="com.pwt.utils.RedisCache"/>
-  <resultMap id="BaseResultMap" type="com.pwt.model.Vo.UserVo">
+  <resultMap id="BaseResultMap" type="com.pwt.model.vo.UserVo">
     <id column="uid" jdbcType="INTEGER" property="uid" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -76,7 +76,7 @@
     uid, username, password, email, home_url, screen_name, created, activated, logged, 
     group_name
   </sql>
-  <select id="selectByExample" parameterType="com.pwt.model.Vo.UserVoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pwt.model.vo.UserVoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -108,13 +108,13 @@
     delete from t_users
     where uid = #{uid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pwt.model.Vo.UserVoExample">
+  <delete id="deleteByExample" parameterType="com.pwt.model.vo.UserVoExample">
     delete from t_users
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pwt.model.Vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
+  <insert id="insert" parameterType="com.pwt.model.vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
     insert into t_users (uid, username, password, 
       email, home_url, screen_name, 
       created, activated, logged, 
@@ -124,7 +124,7 @@
       #{created,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, #{logged,jdbcType=INTEGER}, 
       #{groupName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.pwt.model.Vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
+  <insert id="insertSelective" parameterType="com.pwt.model.vo.UserVo" useGeneratedKeys="true" keyProperty="uid">
     insert into t_users
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uid != null">
@@ -191,7 +191,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pwt.model.Vo.UserVoExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pwt.model.vo.UserVoExample" resultType="java.lang.Long">
     select count(*) from t_users
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -251,7 +251,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pwt.model.Vo.UserVo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pwt.model.vo.UserVo">
     update t_users
     <set>
       <if test="username != null">
@@ -284,7 +284,7 @@
     </set>
     where uid = #{uid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pwt.model.Vo.UserVo">
+  <update id="updateByPrimaryKey" parameterType="com.pwt.model.vo.UserVo">
     update t_users
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

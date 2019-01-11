@@ -1,4 +1,4 @@
-package com.pwt.model.Bo;
+package com.pwt.model.bo;
 
 /**
  * rest返回对象

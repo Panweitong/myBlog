@@ -1,11 +1,12 @@
-package com.pwt.model.Vo;
+package com.pwt.model.vo;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 /**
- * @author 
+ * @author pwt
  */
-public class UserVo implements Serializable {
+public class FontUserVo implements Serializable {
     /**
      * user表主键
      */
@@ -55,6 +56,21 @@ public class UserVo implements Serializable {
      * 用户组
      */
     private String groupName;
+
+    /**
+     * 头像
+     */
+     private String headPhoto;
+
+    /**
+     * 密钥
+     */
+    private  String secretKey;
+
+    /**
+     * 过期时间
+     */
+    private Timestamp outDate;
 
     private static final long serialVersionUID = 1L;
 
@@ -136,5 +152,29 @@ public class UserVo implements Serializable {
 
     public void setGroupName(String groupName) {
         this.groupName = groupName;
+    }
+
+    public String getHeadPhoto() {
+        return headPhoto;
+    }
+
+    public void setHeadPhoto(String headPhoto) {
+        this.headPhoto = headPhoto;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }
+
+    public Timestamp getOutDate() {
+        return outDate;
+    }
+
+    public void setOutDate(Timestamp outDate) {
+        this.outDate = outDate;
     }
 }

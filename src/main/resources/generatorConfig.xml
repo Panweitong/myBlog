@@ -82,5 +82,7 @@
         </table>
         <table tableName="t_attach" domainObjectName="Attach">
         </table>
+        <table tableName="t_visittotal" domainObjectName="VisitTotal">
+        </table>
     </context>
 </generatorConfiguration>

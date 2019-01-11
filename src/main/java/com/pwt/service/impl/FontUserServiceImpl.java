@@ -2,8 +2,8 @@ package com.pwt.service.impl;
 
 import com.pwt.dao.FontUserVoMapper;
 import com.pwt.exception.TipException;
-import com.pwt.model.Vo.FontUserVo;
-import com.pwt.model.Vo.FontUserVoExample;
+import com.pwt.model.vo.FontUserVo;
+import com.pwt.model.vo.FontUserVoExample;
 import com.pwt.service.IFontUserService;
 import com.pwt.utils.TaleUtils;
 import org.apache.commons.lang3.StringUtils;

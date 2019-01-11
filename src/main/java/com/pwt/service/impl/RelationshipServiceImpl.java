@@ -1,8 +1,8 @@
 package com.pwt.service.impl;
 
 import com.pwt.dao.RelationshipVoMapper;
-import com.pwt.model.Vo.RelationshipVoExample;
-import com.pwt.model.Vo.RelationshipVoKey;
+import com.pwt.model.vo.RelationshipVoExample;
+import com.pwt.model.vo.RelationshipVoKey;
 import com.pwt.service.IRelationshipService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

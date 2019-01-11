@@ -2,7 +2,7 @@ package com.pwt.interceptor;
 
 
 import com.pwt.dto.Types;
-import com.pwt.model.Vo.UserVo;
+import com.pwt.model.vo.UserVo;
 import com.pwt.service.IUserService;
 import com.pwt.utils.*;
 import com.pwt.constant.WebConst;
@@ -36,6 +36,9 @@ public class BaseInterceptor implements HandlerInterceptor {
 
     @Autowired
     private AdminCommons adminCommons;
+
+    @Autowired
+    private SessionCounter sessionCounter;
 
 
     @Override
@@ -84,6 +87,7 @@ public class BaseInterceptor implements HandlerInterceptor {
         httpServletRequest.setAttribute("commons", commons);
         //一些工具类和公共方法
         httpServletRequest.setAttribute("adminCommons", adminCommons);
+        httpServletRequest.setAttribute("count",sessionCounter);
     }
 
     @Override

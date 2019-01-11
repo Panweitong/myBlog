@@ -4,6 +4,21 @@
 <footer class="py-5 bg-dark" style="flex: 0 0 auto">
     <div class="container">
         <div class="row">
+            <div class="col-lg-3"></div>
+            <div class="col-lg-6" style="text-align: center;color: white">
+                <label style="margin-right: 20px">今日访问量:
+                    <span th:text="${count.today}"></span>
+                </label>
+                <label style="margin-right: 20px">总访问量:
+                    <span th:text="${count.all}"></span>
+                </label>
+                <label>当前在线人数:
+                    <span th:text="${count.count}"></span>
+                </label>
+            </div>
+            <div class="col-lg-3"></div>
+        </div>
+        <div class="row">
             <div class="col-lg-6 text-center text-lg-left my-auto">
                 <ul class="list-inline mb-2 text-white">
                     <li class="list-inline-item">
@@ -13,7 +28,6 @@
                     <li class="list-inline-item">
                         <a href="/post" class="text-white"  th:href="${commons.siteUrl('/archives')}">归档</a>
                     </li>
-                    <li class="list-inline-item">&sdot;</li>
                     <!--<li class="list-inline-item">-->
                         <!--<a href="/resume" class="text-white" th:href="${commons.siteUrl('/about')}">关于</a>-->
                     <!--</li>-->

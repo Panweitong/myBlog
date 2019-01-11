@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pwt.dao.FontUserVoMapper">
   <cache type="com.pwt.utils.RedisCache"/>
-  <resultMap id="BaseResultMap" type="com.pwt.model.Vo.FontUserVo">
+  <resultMap id="BaseResultMap" type="com.pwt.model.vo.FontUserVo">
     <id column="uid" jdbcType="INTEGER" property="uid" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -79,7 +79,7 @@
     uid, username, password, email,head_photo, home_url, screen_name, created, activated, logged,
     group_name,outDate,secretKey
   </sql>
-  <select id="selectByExample" parameterType="com.pwt.model.Vo.FontUserVoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pwt.model.vo.FontUserVoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -111,13 +111,13 @@
     delete from t_fontusers
     where uid = #{uid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pwt.model.Vo.FontUserVoExample">
+  <delete id="deleteByExample" parameterType="com.pwt.model.vo.FontUserVoExample">
     delete from t_fontusers
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pwt.model.Vo.FontUserVo" useGeneratedKeys="true" keyProperty="uid">
+  <insert id="insert" parameterType="com.pwt.model.vo.FontUserVo" useGeneratedKeys="true" keyProperty="uid">
     insert into t_fontusers (uid, username, password,
       email,head_photo, home_url, screen_name,
       created, activated, logged, 
@@ -127,7 +127,7 @@
       #{created,jdbcType=INTEGER}, #{activated,jdbcType=INTEGER}, #{logged,jdbcType=INTEGER}, 
       #{groupName,jdbcType=VARCHAR},#{outDate,jdbcType=TIMESTAMP},#{secretKey,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.pwt.model.Vo.FontUserVo" useGeneratedKeys="true" keyProperty="uid">
+  <insert id="insertSelective" parameterType="com.pwt.model.vo.FontUserVo" useGeneratedKeys="true" keyProperty="uid">
     insert into t_fontusers
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="uid != null">
@@ -212,7 +212,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pwt.model.Vo.FontUserVoExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pwt.model.vo.FontUserVoExample" resultType="java.lang.Long">
     select count(*) from t_fontusers
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -284,7 +284,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pwt.model.Vo.FontUserVo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pwt.model.vo.FontUserVo">
     update t_fontusers
     <set>
       <if test="username != null">
@@ -326,7 +326,7 @@
     </set>
     where uid = #{uid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pwt.model.Vo.FontUserVo">
+  <update id="updateByPrimaryKey" parameterType="com.pwt.model.vo.FontUserVo">
     update t_fontusers
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
@@ -342,7 +342,7 @@
       secretKey=#{record.secretKey,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
-  <update id="updateByNameSelective" parameterType="com.pwt.model.Vo.FontUserVo">
+  <update id="updateByNameSelective" parameterType="com.pwt.model.vo.FontUserVo">
     update t_fontusers
     <set>
       <if test="uid != null">
@@ -384,7 +384,7 @@
     </set>
     where username = #{username,jdbcType=VARCHAR}
   </update>
-  <update id="updateByName" parameterType="com.pwt.model.Vo.FontUserVo">
+  <update id="updateByName" parameterType="com.pwt.model.vo.FontUserVo">
     update t_fontusers
     set uid = #{uid,jdbcType=INTEGER},
       password = #{password,jdbcType=VARCHAR},

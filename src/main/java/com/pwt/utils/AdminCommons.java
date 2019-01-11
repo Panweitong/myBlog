@@ -1,7 +1,7 @@
 package com.pwt.utils;
 
 
-import com.pwt.model.Vo.MetaVo;
+import com.pwt.model.vo.MetaVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.pwt.dao.LogVoMapper">
   <cache type="com.pwt.utils.RedisCache"/>
-  <resultMap id="BaseResultMap" type="com.pwt.model.Vo.LogVo">
+  <resultMap id="BaseResultMap" type="com.pwt.model.vo.LogVo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="action" jdbcType="VARCHAR" property="action" />
     <result column="data" jdbcType="VARCHAR" property="data" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List">
     id, action, data, author_id, ip, created
   </sql>
-  <select id="selectByExample" parameterType="com.pwt.model.Vo.LogVoExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pwt.model.vo.LogVoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -103,13 +103,13 @@
     delete from t_logs
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pwt.model.Vo.LogVoExample">
+  <delete id="deleteByExample" parameterType="com.pwt.model.vo.LogVoExample">
     delete from t_logs
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pwt.model.Vo.LogVo" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insert" parameterType="com.pwt.model.vo.LogVo" useGeneratedKeys="true" keyProperty="id">
     insert into t_logs (id, action, data, 
       author_id, ip, created
       )
@@ -117,7 +117,7 @@
       #{authorId,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{created,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.pwt.model.Vo.LogVo" useGeneratedKeys="true" keyProperty="id">
+  <insert id="insertSelective" parameterType="com.pwt.model.vo.LogVo" useGeneratedKeys="true" keyProperty="id">
     insert into t_logs
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -160,7 +160,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pwt.model.Vo.LogVoExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.pwt.model.vo.LogVoExample" resultType="java.lang.Long">
     select count(*) from t_logs
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -204,7 +204,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pwt.model.Vo.LogVo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pwt.model.vo.LogVo">
     update t_logs
     <set>
       <if test="action != null">
@@ -225,7 +225,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pwt.model.Vo.LogVo">
+  <update id="updateByPrimaryKey" parameterType="com.pwt.model.vo.LogVo">
     update t_logs
     set action = #{action,jdbcType=VARCHAR},
       data = #{data,jdbcType=VARCHAR},

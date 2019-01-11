@@ -1,9 +1,12 @@
-package com.pwt.model.Vo;
+package com.pwt.model.vo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FontUserVoExample {
+/**
+ * @author pwt
+ */
+public class UserVoExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -14,7 +17,7 @@ public class FontUserVoExample {
 
     private Integer offset;
 
-    public FontUserVoExample() {
+    public UserVoExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

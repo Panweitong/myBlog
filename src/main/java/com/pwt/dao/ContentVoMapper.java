@@ -1,8 +1,8 @@
 package com.pwt.dao;
 
-import com.pwt.model.Bo.ArchiveBo;
-import com.pwt.model.Vo.ContentVo;
-import com.pwt.model.Vo.ContentVoExample;
+import com.pwt.model.bo.ArchiveBo;
+import com.pwt.model.vo.ContentVo;
+import com.pwt.model.vo.ContentVoExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

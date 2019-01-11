@@ -1,6 +1,6 @@
-package com.pwt.model.Bo;
+package com.pwt.model.bo;
 
-import com.pwt.model.Vo.CommentVo;
+import com.pwt.model.vo.CommentVo;
 
 import java.util.List;
 

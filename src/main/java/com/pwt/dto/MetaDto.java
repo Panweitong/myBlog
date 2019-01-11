@@ -1,6 +1,6 @@
 package com.pwt.dto;
 
-import com.pwt.model.Vo.MetaVo;
+import com.pwt.model.vo.MetaVo;
 
 public class MetaDto extends MetaVo {
 

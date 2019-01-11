@@ -1,7 +1,7 @@
 package com.pwt.dao;
 
-import com.pwt.model.Vo.CommentVo;
-import com.pwt.model.Vo.CommentVoExample;
+import com.pwt.model.vo.CommentVo;
+import com.pwt.model.vo.CommentVoExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

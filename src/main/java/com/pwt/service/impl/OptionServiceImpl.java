@@ -1,8 +1,8 @@
 package com.pwt.service.impl;
 
 import com.pwt.dao.OptionVoMapper;
-import com.pwt.model.Vo.OptionVo;
-import com.pwt.model.Vo.OptionVoExample;
+import com.pwt.model.vo.OptionVo;
+import com.pwt.model.vo.OptionVoExample;
 import com.pwt.service.IOptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

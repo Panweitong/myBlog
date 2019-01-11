@@ -1,8 +1,8 @@
-package com.pwt.model.Bo;
+package com.pwt.model.bo;
 
 
 
-import com.pwt.model.Vo.ContentVo;
+import com.pwt.model.vo.ContentVo;
 
 import java.io.Serializable;
 import java.util.List;

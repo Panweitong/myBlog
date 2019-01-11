@@ -1,11 +1,11 @@
 package com.pwt.service;
 
 import com.pwt.dto.MetaDto;
-import com.pwt.model.Bo.ArchiveBo;
-import com.pwt.model.Bo.BackResponseBo;
-import com.pwt.model.Bo.StatisticsBo;
-import com.pwt.model.Vo.CommentVo;
-import com.pwt.model.Vo.ContentVo;
+import com.pwt.model.bo.ArchiveBo;
+import com.pwt.model.bo.BackResponseBo;
+import com.pwt.model.bo.StatisticsBo;
+import com.pwt.model.vo.CommentVo;
+import com.pwt.model.vo.ContentVo;
 
 import java.util.List;
 

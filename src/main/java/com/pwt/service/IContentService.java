@@ -3,8 +3,8 @@ package com.pwt.service;
 import com.github.pagehelper.PageInfo;
 
 import com.pwt.dto.ArticleSearchForm;
-import com.pwt.model.Vo.ContentVo;
-import com.pwt.model.Vo.ContentVoExample;
+import com.pwt.model.vo.ContentVo;
+import com.pwt.model.vo.ContentVoExample;
 
 /**
  * Created by pwt on 2017/3/13 013.

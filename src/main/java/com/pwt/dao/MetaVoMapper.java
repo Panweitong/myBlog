@@ -1,8 +1,8 @@
 package com.pwt.dao;
 
 import com.pwt.dto.MetaDto;
-import com.pwt.model.Vo.MetaVo;
-import com.pwt.model.Vo.MetaVoExample;
+import com.pwt.model.vo.MetaVo;
+import com.pwt.model.vo.MetaVoExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

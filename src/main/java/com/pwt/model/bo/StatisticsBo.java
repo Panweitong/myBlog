@@ -1,4 +1,4 @@
-package com.pwt.model.Bo;
+package com.pwt.model.bo;
 
 import java.io.Serializable;
 

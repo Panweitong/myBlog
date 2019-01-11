@@ -1,9 +1,9 @@
-package com.pwt.model.Vo;
+package com.pwt.model.vo;
 
 import java.io.Serializable;
 
 /**
- * @author 
+ * @author pwt
  */
 public class MetaVo implements Serializable {
     /**

@@ -1,7 +1,7 @@
 package com.pwt.dao;
 
-import com.pwt.model.Vo.LogVo;
-import com.pwt.model.Vo.LogVoExample;
+import com.pwt.model.vo.LogVo;
+import com.pwt.model.vo.LogVoExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

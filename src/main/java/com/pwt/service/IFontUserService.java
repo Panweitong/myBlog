@@ -1,7 +1,7 @@
 package com.pwt.service;
 
 
-import com.pwt.model.Vo.FontUserVo;
+import com.pwt.model.vo.FontUserVo;
 
 /**
  * Created by pwt on 2017/3/3.

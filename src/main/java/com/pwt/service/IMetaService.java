@@ -1,7 +1,7 @@
 package com.pwt.service;
 
 import com.pwt.dto.MetaDto;
-import com.pwt.model.Vo.MetaVo;
+import com.pwt.model.vo.MetaVo;
 
 import java.util.List;
 

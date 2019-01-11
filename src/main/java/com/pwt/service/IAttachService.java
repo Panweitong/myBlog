@@ -1,7 +1,7 @@
 package com.pwt.service;
 
 import com.github.pagehelper.PageInfo;
-import com.pwt.model.Vo.AttachVo;
+import com.pwt.model.vo.AttachVo;
 
 /**
  * Created by pwt on 2017/3/20.
