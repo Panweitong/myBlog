@@ -55,7 +55,7 @@ public class AttachServiceImpl implements IAttachService {
     @Override
     public void deleteById(Integer id) {
         if (null != id) {
-            attachDao.deleteByPrimaryKey( id);
+            attachDao.deleteByPrimaryKey(id);
         }
     }
 

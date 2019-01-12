@@ -42,7 +42,7 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 
-  <!--&lt;!&ndash; spring监听器 &ndash;&gt;-->
+  <!-- spring监听器 -->
   <!--<listener>-->
     <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
   <!--</listener>-->
@@ -91,6 +91,6 @@
 
   <!-- session配置 -->
   <session-config>
-    <session-timeout>15</session-timeout>
+    <session-timeout>3</session-timeout>
   </session-config>
 </web-app>

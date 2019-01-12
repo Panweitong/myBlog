@@ -1,70 +1,69 @@
 package com.pwt.utils;
 
+import com.pwt.model.vo.VisitTotalVo;
+import com.pwt.service.IVisitTotalService;
 import org.springframework.stereotype.Component;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * count 当前在线用户数
- * all 总访问量
- * today 今日访问量
- * day 今日日期
+ * @author pwt
  */
 @Component
 public class SessionCounter implements HttpSessionListener {
 
-    private static Integer count = 0;
-    private static long today = 0;
-    private static long all = 0;
-    private static int day = 0;
+    private static IVisitTotalService iVisitTotalService;
 
-    //session创建
+    private static Map sessionMap = new HashMap();
+
+    public SessionCounter() {}
+
     @Override
     public void sessionCreated(HttpSessionEvent arg0) {
         ServletContext context = arg0.getSession().getServletContext();
-        count = (Integer) context.getAttribute("onlineCount");
-        if (count == null) {
-            count = new Integer(1);
-        } else {
-            int co = count.intValue();
-            count = new Integer(co + 1);
+        Date date = new Date();
+        boolean flag = true;
+        for(Object key : sessionMap.keySet()){
+            if(key.toString().equals(arg0.getSession().getId())){
+                flag = false;
+            }
         }
-        // 保存人数
-        context.setAttribute("onlineCount", count);
-        all++;
-        Date date=new Date();
-        int tday=date.getDate();
-        //如果日期发生变化则将today置为1，否则将today加1
-        if(tday!=day){
-            day=tday;
-            today=1;
-        }else{
-            today++;
+        if(flag){
+            sessionMap.put(arg0.getSession().getId(), arg0.getSession());
+        }
+
+        context.setAttribute("onlineCount", sessionMap.size());
+        VisitTotalVo visitTotalVo = new VisitTotalVo();
+        iVisitTotalService = InjectServiceUtil.getIVisitTotalService();
+        DateFormat d1 = DateFormat.getDateInstance();
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            visitTotalVo.setVisitDate(new java.sql.Date(sdf.parse(d1.format(date)).getTime()));
+            iVisitTotalService.queryVisitTotalByVisitDate(visitTotalVo);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void sessionDestroyed(HttpSessionEvent arg0) {
+
+        boolean flag = false;
+        for(Object key : sessionMap.keySet()){
+            if(key.toString().equals(arg0.getSession().getId())){
+                flag = true;
+            }
+        }
+        if(flag){
+            sessionMap.remove(arg0.getSession().getId());
+        }
         ServletContext context = arg0.getSession().getServletContext();
-        count = (Integer) context.getAttribute("onlineCount");
-        int co = count.intValue();
-        count = new Integer(co - 1);
-        count = count >= 0 ? count : 0;
-        context.setAttribute("onlineCount", count);
-    }
-
-    public static Integer getCount() {
-        return count;
-    }
-
-    public long getAll(){
-        return all;
-    }
-
-    public long getToday(){
-        return today;
+        context.setAttribute("onlineCount", sessionMap.size());
     }
 }

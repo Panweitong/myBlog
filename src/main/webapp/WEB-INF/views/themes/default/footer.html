@@ -7,13 +7,13 @@
             <div class="col-lg-3"></div>
             <div class="col-lg-6" style="text-align: center;color: white">
                 <label style="margin-right: 20px">今日访问量:
-                    <span th:text="${count.today}"></span>
+                    <span id="today"></span>
                 </label>
                 <label style="margin-right: 20px">总访问量:
-                    <span th:text="${count.all}"></span>
+                    <span id="all"></span>
                 </label>
                 <label>当前在线人数:
-                    <span th:text="${count.count}"></span>
+                    <span id="count"></span>
                 </label>
             </div>
             <div class="col-lg-3"></div>
@@ -129,6 +129,17 @@ $(document).ready(function() {
         $('#id_img_wechat_qrcode').fadeIn("fast");
     },function () {
         $('#id_img_wechat_qrcode').fadeOut("fast");
+    });
+
+    $.ajax({
+        url:"/visit",
+        type:"GET",
+        dataType:"json",
+        success:function(result) {
+           $("#today").text(result.accessToday);
+           $("#all").text(result.accessTotal);
+           $("#count").text(result.onlineCurrent);
+        }
     });
 });
 </script>

@@ -8,6 +8,7 @@ import com.pwt.exception.TipException;
 import com.pwt.model.bo.ArchiveBo;
 import com.pwt.model.bo.CommentBo;
 import com.pwt.model.bo.RestResponseBo;
+import com.pwt.model.bo.VisitTotalBo;
 import com.pwt.model.vo.*;
 import com.pwt.service.*;
 import com.pwt.utils.*;
@@ -37,7 +38,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -68,7 +73,8 @@ public class FontIndexPcController extends BaseController {
     @Autowired
     private ICommentService commentService;
 
-
+    @Autowired
+    private IVisitTotalService visitTotalService;
 
     /**
      * 首页
@@ -943,5 +949,26 @@ public class FontIndexPcController extends BaseController {
             return RestResponseBo.fail();
         }
         return RestResponseBo.ok(errorFiles);
+    }
+
+    /**
+     * 网站统计接口
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "visit",method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "网站统计", notes = "网站统计", httpMethod = "GET")
+    public VisitTotalBo count(HttpServletRequest request) throws ParseException {
+        VisitTotalBo visitTotalBo = new VisitTotalBo();
+        visitTotalBo.setOnlineCurrent((int) request.getServletContext().getAttribute("onlineCount"));
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat d1 = DateFormat.getDateTimeInstance();
+        int todayCount = visitTotalService.queryCountByVisitDate(sdf.parse(d1.format(new Date())));
+        visitTotalBo.setAccessToday(todayCount);
+        int allCount = visitTotalService.querySumByVisitCount();
+        visitTotalBo.setAccessTotal(allCount);
+        return visitTotalBo;
     }
 }
