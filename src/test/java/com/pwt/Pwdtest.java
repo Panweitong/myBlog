@@ -1,6 +1,6 @@
 package com.pwt;
 
-import com.pwt.model.Vo.UserVo;
+import com.pwt.model.vo.UserVo;
 import com.pwt.utils.TaleUtils;
 
 /**
