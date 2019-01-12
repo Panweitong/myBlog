@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pwt.dao.VisitTotalMapper" >
+  <resultMap id="BaseResultMap" type="com.pwt.model.vo.VisitTotalVo" >
+    <constructor >
+      <idArg column="visit_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="visit_date" jdbcType="DATE" javaType="java.sql.Date" />
+      <arg column="visit_count" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    visit_id, visit_date, visit_count
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.pwt.model.vo.VisitTotalVoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_visittotal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_visittotal
+    where visit_id = #{visitId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_visittotal
+    where visit_id = #{visitId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pwt.model.vo.VisitTotalVoExample" >
+    delete from t_visittotal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pwt.model.vo.VisitTotalVo" >
+    insert into t_visittotal (visit_id, visit_date, visit_count
+      )
+    values (#{visitId,jdbcType=INTEGER}, #{visitDate,jdbcType=DATE}, #{visitCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pwt.model.vo.VisitTotalVo" >
+    insert into t_visittotal
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="visitId != null" >
+        visit_id,
+      </if>
+      <if test="visitDate != null" >
+        visit_date,
+      </if>
+      <if test="visitCount != null" >
+        visit_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="visitId != null" >
+        #{visitId,jdbcType=INTEGER},
+      </if>
+      <if test="visitDate != null" >
+        #{visitDate,jdbcType=DATE},
+      </if>
+      <if test="visitCount != null" >
+        #{visitCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pwt.model.vo.VisitTotalVoExample" resultType="java.lang.Integer" >
+    select count(*) from t_visittotal
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_visittotal
+    <set >
+      <if test="record.visitId != null" >
+        visit_id = #{record.visitId,jdbcType=INTEGER},
+      </if>
+      <if test="record.visitDate != null" >
+        visit_date = #{record.visitDate,jdbcType=DATE},
+      </if>
+      <if test="record.visitCount != null" >
+        visit_count = #{record.visitCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_visittotal
+    set visit_id = #{record.visitId,jdbcType=INTEGER},
+      visit_date = #{record.visitDate,jdbcType=DATE},
+      visit_count = #{record.visitCount,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pwt.model.vo.VisitTotalVo" >
+    update t_visittotal
+    <set >
+      <if test="visitDate != null" >
+        visit_date = #{visitDate,jdbcType=DATE},
+      </if>
+      <if test="visitCount != null" >
+        visit_count = #{visitCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where visit_id = #{visitId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pwt.model.vo.VisitTotalVo" >
+    update t_visittotal
+    set visit_date = #{visitDate,jdbcType=DATE},
+      visit_count = #{visitCount,jdbcType=INTEGER}
+    where visit_id = #{visitId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByVisitDateSelective" parameterType="com.pwt.model.vo.VisitTotalVo" >
+    update t_visittotal
+    <set >
+      <if test="visitDate != null" >
+        visit_date = #{visitDate,jdbcType=DATE},
+      </if>
+      <if test="visitCount != null" >
+        visit_count = #{visitCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where visit_date = #{visitDate,jdbcType=DATE}
+  </update>
+
+  <update id="updateByVisitDate" parameterType="com.pwt.model.vo.VisitTotalVo" >
+    update t_visittotal
+    set visit_date = #{visitDate,jdbcType=DATE},
+      visit_count = #{visitCount,jdbcType=INTEGER}
+    where visit_date = #{visitDate,jdbcType=DATE}
+  </update>
+
+  <select id="selectByVisitDate" parameterType="java.sql.Date" resultType="java.lang.Integer">
+    select visit_count from t_visittotal where visit_date = #{visitDate,jdbcType=DATE}
+  </select>
+
+  <insert id="insertOrUpdate" parameterType="com.pwt.model.vo.VisitTotalVo">
+    insert into t_visittotal (visit_date, visit_count
+      )
+    values (#{visitDate,jdbcType=DATE}, 1
+      ) on DUPLICATE KEY UPDATE visit_count= visit_count + 1
+  </insert>
+
+  <select id="selectSumByVisitCount" resultType="java.lang.Integer">
+    select sum(visit_count) from t_visittotal
+  </select>
+</mapper>
