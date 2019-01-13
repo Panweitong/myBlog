@@ -38,7 +38,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -964,8 +963,7 @@ public class FontIndexPcController extends BaseController {
         VisitTotalBo visitTotalBo = new VisitTotalBo();
         visitTotalBo.setOnlineCurrent((int) request.getServletContext().getAttribute("onlineCount"));
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-        DateFormat d1 = DateFormat.getDateTimeInstance();
-        int todayCount = visitTotalService.queryCountByVisitDate(sdf.parse(d1.format(new Date())));
+        int todayCount = visitTotalService.queryCountByVisitDate(sdf.parse(sdf.format(new Date())));
         visitTotalBo.setAccessToday(todayCount);
         int allCount = visitTotalService.querySumByVisitCount();
         visitTotalBo.setAccessTotal(allCount);

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,10 +40,9 @@ public class SessionCounter implements HttpSessionListener {
         context.setAttribute("onlineCount", sessionMap.size());
         VisitTotalVo visitTotalVo = new VisitTotalVo();
         iVisitTotalService = InjectServiceUtil.getIVisitTotalService();
-        DateFormat d1 = DateFormat.getDateInstance();
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         try {
-            visitTotalVo.setVisitDate(new java.sql.Date(sdf.parse(d1.format(date)).getTime()));
+            visitTotalVo.setVisitDate(new java.sql.Date(sdf.parse(sdf.format(date)).getTime()));
             iVisitTotalService.queryVisitTotalByVisitDate(visitTotalVo);
         } catch (Exception e) {
             e.printStackTrace();
