@@ -69,7 +69,7 @@
     </bean>
     <!-- Spring-redis连接池管理工厂 -->
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          p:host-name="${redis.host}" p:port="${redis.port}" p:pool-config-ref="poolConfig"/>
+          p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}" p:pool-config-ref="poolConfig"/>
     <!-- 使用中间类解决RedisCache.jedisConnectionFactory的静态注入，从而使MyBatis实现第三方缓存 -->
     <bean id="redisCacheTransfer" class="com.pwt.utils.RedisCacheTransfer">
         <property name="jedisConnectionFactory" ref="jedisConnectionFactory"/>
