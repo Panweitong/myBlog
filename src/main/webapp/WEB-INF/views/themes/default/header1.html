@@ -120,13 +120,13 @@
                 </th:block>
                 <th:block th:unless="${session.login_fontUser}!=null">
                     <li class="nav-item" style="margin-right: 10px;">
-                        <a class="btn btn-info btn-xs" th:href="@{/register}" onclick="location.reload()" style="background-color: #17a2b8;border-color: #17a2b8;">
+                        <a class="btn btn-info btn-xs" onclick='location.href="/register"' style="background-color: #17a2b8;border-color: #17a2b8;cursor:pointer;">
                             <span class="fa fa-sign-in"></span>
                             注册
                         </a>
                     </li>
                     <li class="nav-item" style="margin-right: 10px;">
-                        <a class="btn btn-warning btn-xs" th:href="@{/login}" onclick="location.reload()" style="background-color: #ffc107;border-color: #ffc107;">
+                        <a class="btn btn-warning btn-xs" onclick='location.href="/login"' style="background-color: #ffc107;border-color: #ffc107;cursor:pointer;">
                             <span class="fa fa-user"></span>
                             登录
                         </a>
